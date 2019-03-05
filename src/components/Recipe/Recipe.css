@@ -1,0 +1,12 @@
+
+.clickable{
+    cursor: pointer
+  }
+  
+  .goodMatch{
+    color: green
+  }
+  
+  .averageMatch{
+    color: orange
+  }

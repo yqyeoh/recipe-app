@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { cloneDeep } from 'lodash'
 import Select from 'react-select';
+import makeAnimated from 'react-select/lib/animated'
 import { getRecipes } from '../../services/recipeService'
 import { getIngredients } from '../../services/ingredientService'
-import RecipeList from '../RecipeList/RecipeList'
+import Recipe from '../Recipe/Recipe'
 
 
 export class HomePage extends Component {
@@ -12,7 +13,7 @@ export class HomePage extends Component {
         recipes: [],
         ingredients: [],
         filteredRecipes: [],
-        modal:false
+        minimumMatchPercentage:30
     }
 
     componentDidMount() {
@@ -57,7 +58,7 @@ export class HomePage extends Component {
                 console.log('missingingredients', recipe.missingIngredients)
                 recipe.ingredientsMatchPercentage = Math.round(recipe.availableIngredients.length / (recipe.ingredients.length- recipe.optionalIngredients.length) * 100)
             }
-            const filteredRecipes = copyStateRecipes.filter(recipe => recipe.ingredientsMatchPercentage >= 30).sort((a,b)=>b.ingredientsMatchPercentage-a.ingredientsMatchPercentage)
+            const filteredRecipes = copyStateRecipes.filter(recipe => recipe.ingredientsMatchPercentage >= this.state.minimumMatchPercentage).sort((a,b)=>b.ingredientsMatchPercentage-a.ingredientsMatchPercentage)
             this.setState({ filteredRecipes: filteredRecipes }, () => {
                 console.log('filteredRecipesMoreThan30Percent', this.state.filteredRecipes)
             })
@@ -71,7 +72,7 @@ export class HomePage extends Component {
     render() {
         const { selectedIngredients, filteredRecipes } = this.state;
         console.log('filteredRecipes', filteredRecipes)       
-
+        const recipe=filteredRecipes.map(item=><Recipe key={item.id} recipe={item}/>)
         return (
             <React.Fragment>
             <Select
@@ -80,8 +81,12 @@ export class HomePage extends Component {
                 options={this.state.ingredients}
                 isMulti
                 isClearable
+                components={makeAnimated()}
+                className="mt-5"
             />
-            <RecipeList filteredRecipes={filteredRecipes}/>
+            <div className="row">   
+            {recipe}
+            </div>
             </React.Fragment>
 
 

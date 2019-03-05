@@ -1,4 +1,4 @@
-const recipes = [
+let recipes = [
     {
         id: 1,
         title: "Chicken Parmesan",
@@ -54,6 +54,7 @@ const recipes = [
         title: "Mojito Shrimp",
         cuisine: "Western",
         imageUrl: "https://static01.nyt.com/images/2016/11/15/dining/15COOKING-OLD-BEEF-STEW2/15COOKING-OLD-BEEF-STEW2-articleLarge.jpg",
+        servings: 4,
         ingredients: [
             { ingredientName: "shrimp", prehandle: "peeled, deveined shrimp, tails on", qty: "1.5", unit: "lb", },
             { ingredientName: "lime juice", prehandle: "", qty: "2", unit: "tbps" },
@@ -70,6 +71,7 @@ const recipes = [
         title: "Yang Zhou Fried Rice",
         cuisine: "Chinese",
         imageUrl: "https://www.fifteenspatulas.com/wp-content/uploads/2012/03/Fried-Rice-Fifteen-Spatulas-8-640x427.jpg",
+        servings: 4,
         ingredients: [
             { ingredientName: "rice", prehandle: "a day old", qty: "1", unit: "bowl", },
             { ingredientName: "cooking oil", prehandle: "", qty: "1", unit: "tbps" },
@@ -90,6 +92,7 @@ const recipes = [
         title: "Black Pepper Crab",
         cuisine: "Chinese",
         imageUrl: "https://i1.wp.com/media.hungryforever.com/wp-content/uploads/2015/12/01120718/BlackPepperCrabs891-e1448951861785.png?resize=600%2C399&ssl=1",
+        servings: 4,
         ingredients: [
             { ingredientName: "rice", prehandle: "a day old", qty: "1", unit: "bowl", },
             { ingredientName: "cooking oil", prehandle: "", qty: "1", unit: "tbps" },
@@ -109,4 +112,10 @@ const recipes = [
 
 export function getRecipes(){
     return recipes
+}
+
+export function deleteRecipe(id){
+    const found = recipes.find(recipe=>recipe.id===id)
+    recipes =  recipes.filter(recipe=>recipe.id!==id)
+    return found
 }
