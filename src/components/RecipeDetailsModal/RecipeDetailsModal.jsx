@@ -5,9 +5,9 @@ import './RecipeDetailsModal.css'
 function RecipeDetailsModal({showModal, toggleModal, recipe}) {
   const {imageUrl, title, cuisine, timeRequired, ingredients, instructions} = recipe
   const ingredientsLayout = ingredients.map(ingredient=>{
-    const {qty,unit,ingredientName,prehandle,isOptional} = ingredient
+    const {qty,unit,ingredientName,extraDescription,isOptional} = ingredient
     return(
-    <p>{qty} {unit} {ingredientName}{prehandle? ', ':""} {prehandle} {isOptional? '(optional)':""}</p>
+    <p>{qty} {unit} {ingredientName}{extraDescription? ', ':""} {extraDescription} {isOptional? '(optional)':""}</p>
     )
   })
   const instructionsLayout = instructions.map((step,index)=>{
