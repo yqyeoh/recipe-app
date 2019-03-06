@@ -13,7 +13,7 @@ export class RecipeForm extends Component {
       servings: "",
       timeRequired: null,
       imageUrl: "",
-      ingredients:[{ ingredientName: "", extraDescription: "", qty: "", unit: "" }],
+      ingredients:[{ ingredientName: "", extraDescription: "", qty: "", unit: "", isOptional:false }],
       instructions:[]
     },
     error:""
@@ -50,17 +50,18 @@ export class RecipeForm extends Component {
 
   addIngredient = () =>{
     const copyRecipe = cloneDeep(this.state.recipe)
-    copyRecipe.ingredients.push({ ingredientName: "", extraDescription: "", qty: "", unit: "" })
+    copyRecipe.ingredients.push({ ingredientName: "", extraDescription: "", qty: "", unit: "", isOptional:false })
     this.setState({recipe: copyRecipe})
   }
 
   handleDelete = (e) =>{
     console.log('delete event', e.target)
     console.log('dataset id', e.target.dataset.id)
-    const updatedIngredients = this.state.recipe.ingredients.filter((ingredient,index)=>index !== parseInt(e.target.dataset.id))
-    console.log('updated Ingredients', updatedIngredients)
+    const targetButton = e.target.name
+    const updatedData = this.state.recipe[targetButton].filter((item,index)=>index !== parseInt(e.target.dataset.id))
+    console.log('updated Ingredients', updatedData)
     const copyRecipe = cloneDeep(this.state.recipe)
-    copyRecipe.ingredients = updatedIngredients
+    copyRecipe[targetButton] = updatedData
     console.log('updatedRecipe after delete ingredient', copyRecipe)
     this.setState({recipe: copyRecipe})
   }
@@ -74,11 +75,10 @@ export class RecipeForm extends Component {
     console.log('ingredients', ingredients)
     const {error} = this.state
     return (
-      <div>
+      <div className="container">
         <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
         <Input name="title" label="Title" onChange={this.handleChange} value={title} error={error.name}/>
-        <button onClick={this.addIngredient}>Add New Ingredient</button>
-        <IngredientInputs ingredients={ingredients} handleDelete={this.handleDelete}/>        
+        <IngredientInputs ingredients={ingredients} handleDelete={this.handleDelete} addIngredient={this.addIngredient}/>        
         </form>
       </div>
     )
