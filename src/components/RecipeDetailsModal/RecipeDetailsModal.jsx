@@ -10,11 +10,7 @@ function RecipeDetailsModal({showModal, toggleModal, recipe}) {
     <p>{qty} {unit} {ingredientName}{extraDescription? ', ':""} {extraDescription} {isOptional? '(optional)':""}</p>
     )
   })
-  const instructionsLayout = instructions.map((step,index)=>{
-    return(
-      <p>{index+1}. {step}</p>
-    )
-  })
+
   return (
     <Modal size='lg' isOpen={showModal} toggleModal={toggleModal}>
           <ModalHeader toggleModal={toggleModal}>{title}</ModalHeader>
@@ -28,7 +24,7 @@ function RecipeDetailsModal({showModal, toggleModal, recipe}) {
             
           </div>
             <h5>Steps</h5>
-            {instructionsLayout}
+            <p>{instructions}</p>
             
           </ModalBody>
           <ModalFooter>

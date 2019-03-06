@@ -66,6 +66,7 @@ export class HomePage extends Component {
     }
 
     handleChange = (selectedIngredients) => {
+        console.log('selectedIngredients', selectedIngredients)
         this.setState({ selectedIngredients: selectedIngredients })
     }
 

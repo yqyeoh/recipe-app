@@ -17,15 +17,7 @@ let recipes = [
             { ingredientName: "olive oil", qty: "1", unit: "cup" },
             { ingredientName: "tomato sauce", qty: "1/2", unit: "cup" },
             { ingredientName: "mozarella cheese", extraDescription: "cut into small cubes", qty: "1/4", unit: "cup" }],
-        instructions:
-            [["Place chicken breasts between two sheets of heavy plastic (resealable freezer bags work well) on a solid, level surface. Firmly pound chicken with the smooth side of a meat mallet to a thickness of 1/2-inch. Season chicken thoroughly with salt and pepper."],
-            ["Beat eggs in a shallow bowl and set aside."],
-            ["Mix bread crumbs and 1/2 cup Parmesan cheese in a separate bowl, set aside."],
-            ["Place flour in a sifter or strainer; sprinkle over chicken breasts, evenly coating both sides."],
-            ["Dip flour coated chicken breast in beaten eggs. Transfer breast to breadcrumb mixture, pressing the crumbs into both sides. Repeat for each breast. Set aside breaded chicken breasts for about 15 minutes."],
-            ["Heat 1 cup olive oil in a large skillet on medium-high heat until it begins to shimmer. Cook chicken until golden, about 2 minutes on each side. The chicken will finish cooking in the oven."],
-            ['Place chicken in a baking dish and top each breast with about 1/3 cup of tomato sauce. Layer each chicken breast with equal amounts of mozzarella cheese, fresh basil, and provolone cheese. Sprinkle 1 to 2 tablespoons of Parmesan cheese on top and drizzle with 1 tablespoon olive oil.'],
-            ["Bake in the preheated oven until cheese is browned and bubbly, and chicken breasts are no longer pink in the center, 15 to 20 minutes. An instant-read thermometer inserted into the center should read at least 165 degrees F (74 degrees C)."]]
+        instructions:"testing instructions"
     },
     {
         id: "2",
@@ -45,9 +37,7 @@ let recipes = [
             { ingredientName: "black pepper", extraDescription: "ground", qty: "1/2", unit: "tbps" },
             { ingredientName: "rosemary", extraDescription: "dried", qty: "1", unit: "tps" },
             { ingredientName: "parsley", extraDescription: "dried", qty: "1", unit: "tps" }],        
-        instructions:
-            [["In a large pot or dutch oven, cook beef in oil over medium heat until brown. Dissolve bouillon in water and pour into pot. Stir in rosemary, parsley and pepper. Bring to a boil, then reduce heat, cover and simmer 1 hour."],
-            ["Stir potatoes, carrots, celery, and onion into the pot. Dissolve cornstarch in 2 teaspoons cold water and stir into stew. Cover and simmer 1 hour more."]]
+        instructions:"testing instructions"
     },
     {
         id: "3",
@@ -61,10 +51,7 @@ let recipes = [
             { ingredientName: "mojito marinade", extraDescription: "",qty: "1", unit: "cup" },
             { ingredientName: "mint sprigs", extraDescription: "",qty: "", unit: "" }],
         timeRequired: "30",
-        instructions:
-            [["Prepare a gas or charcoal grill for high heat (you can hold your hand 1 to 2 in. above cooking grate only 1 to 2 seconds). Meanwhile, put shrimp in a 1-gal. resealable plastic bag and pour in marinade. Seal and marinate at room temperature 15 to 20 minutes."],
-            ["Remove shrimp, reserving marinade. Thread shrimp onto 6 or 7 (10- to 14-in.) metal or bamboo skewers."],
-            ["Arrange shrimp on grill and baste with marinade (dab some mint and shallot onto shrimp); close lid. Cook until shrimp are just beginning to brown, 1 to 2 minutes. Turn shrimp over, baste again, and close lid. Cook 1 to 2 minutes until browned but still moist in center (cut to check). Transfer shrimp to a platter, drizzle with lime juice, and garnish with mint sprigs."]]
+        instructions:"testing instructions"
     },
     {
         id: "4",
@@ -81,11 +68,7 @@ let recipes = [
             { ingredientName: "sesame oil", extraDescription: "", qty: "1/2", unit: "tbps"},
             { ingredientName: "green beans", extraDescription: "chopped", qty: "4-5", unit: "tbps"}],
         timeRequired: "30",
-        instructions:
-            [["In a pan add 1 Tbsp oil, garlic and chilli. Saute."],
-            ["Add carrots, baby corn, green beans and cabbage. Saute and add sesame oil. Add the rice."],
-            ["Season with salt and pepper, soy sauce and wine. Cook for a minute."],
-            ["Serve hot garnished with some chopped spring onion greens."]]
+        instructions: "testing instructions"
     },
     {
         id: "5",
@@ -102,11 +85,7 @@ let recipes = [
             { ingredientName: "sesame oil", extraDescription: "", qty: "1/2", unit: "tbps"},
             { ingredientName: "green beans", extraDescription: "chopped", qty: "4-5", unit: "tbps"}],
         timeRequired: "30",
-        instructions:
-            [["In a pan add 1 Tbsp oil, garlic and chilli. Saute."],
-            ["Add carrots, baby corn, green beans and cabbage. Saute and add sesame oil. Add the rice."],
-            ["Season with salt and pepper, soy sauce and wine. Cook for a minute."],
-            ["Serve hot garnished with some chopped spring onion greens."]]
+        instructions:"testing instructions"
     }
 ]
 
