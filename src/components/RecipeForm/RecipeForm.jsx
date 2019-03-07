@@ -3,9 +3,9 @@ import { cloneDeep } from 'lodash'
 import Joi from 'joi-browser'
 import Input from "../common/Input";
 import TextArea from "../common/TextArea";
-import { getRecipes } from '../../services/recipeService'
+import { getRecipes, saveRecipe } from '../../services/recipeService'
 import IngredientInputs from '../IngredientInputs/IngredientInputs'
-import { getIngredients } from '../../services/ingredientService'
+import { getIngredients, saveIngredients } from '../../services/ingredientService'
 import SelectInput from '../common/SelectInput'
 import { getCuisines } from '../../services/cuisineService'
 
@@ -16,7 +16,7 @@ export class RecipeForm extends Component {
       title: "",
       cuisine: "",
       servings: "",
-      timeRequired: null,
+      timeRequired: "",
       imageUrl: "",
       ingredients: [{ ingredientName: "", extraDescription: "", qty: "", unit: "", isOptional: false }],
       instructions: ""
@@ -157,8 +157,16 @@ export class RecipeForm extends Component {
     this.setState({ recipe: copyRecipe })
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = (e) => {    
     e.preventDefault()
+    console.log('handle submit called, event.currentTarget:', e.currentTarget)
+    const {recipe, newIngredientOptions} = this.state
+    const recipeIngredientNames = recipe.ingredients.map(ingredient=>ingredient.ingredientName)
+    const cleansedNewIngredients = newIngredientOptions.filter(newIngredient=> recipeIngredientNames.includes(newIngredient.name)).map(newIngredient=>({name:newIngredient.name, isExcludedFromMatch:false}))
+    saveRecipe(recipe)
+    saveIngredients(cleansedNewIngredients)
+    this.props.history.replace(this.props.returnPath);
+
   }
 
   validate=()=>{

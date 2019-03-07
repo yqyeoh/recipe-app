@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { getRecipes, deleteRecipe } from '../../services/recipeService'
 import AdminRecipeCard from '../AdminRecipeCard/AdminRecipeCard'
-import { get } from 'http';
 
 
 export class AdminPage extends Component {

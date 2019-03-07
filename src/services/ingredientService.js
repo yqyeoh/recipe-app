@@ -1,4 +1,4 @@
-const ingredients = [{ id: 1, name: "chicken", isExcludedFromMatch: false },
+let ingredients = [{ id: 1, name: "chicken", isExcludedFromMatch: false },
 { id: 2, name: "beef", isExcludedFromMatch: false },
 { id: 3, name: "lamb", isExcludedFromMatch: false },
 { id: 4, name: "shrimp", isExcludedFromMatch: false },
@@ -37,4 +37,14 @@ const ingredients = [{ id: 1, name: "chicken", isExcludedFromMatch: false },
 
 export function getIngredients(){
     return ingredients
+}
+
+export function saveIngredients(newIngredients){
+    if (newIngredients.length===0) return
+    console.log('newIngredients in ingredient service', newIngredients)
+    newIngredients = newIngredients.map(ingredient=>({...ingredient, id:Date.now().toString()}))
+    ingredients = [...ingredients, ...newIngredients]
+    console.log('ingredients list =>',ingredients)
+
+    return newIngredients
 }

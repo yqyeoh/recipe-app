@@ -66,14 +66,14 @@ function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredient
               <input className="form-control" data-id={index} name="isOptional" type="checkbox" id={isOptionalId} checked={ingredients[index].isOptional} />
             </div>
             <div className="col-sm-1">
-              <button className="btn btn-danger btn-sm" data-id={index} onClick={handleDelete} name="ingredients">Delete</button>
+              <button type="button" className="btn btn-danger btn-sm" data-id={index} onClick={handleDelete} name="ingredients">Delete</button>
             </div>
           </div>
 
         )
 
       })}
-      <button className="btn btn-success btn-sm" onClick={addIngredient}>Add New Ingredient</button>
+      <button type="button" className="btn btn-success btn-sm" onClick={addIngredient}>Add New Ingredient</button>
     </React.Fragment>
 
   )

@@ -100,10 +100,14 @@ export function deleteRecipe(id){
 }
 
 export function saveRecipe(recipe){
+    console.log('saveRecipe in recipeService', recipe)
     let existingRecipe = recipes.find(item=>item.id === recipe.id)
     if(existingRecipe){
         const merged = { ...existingRecipe, ...recipe };
-        recipes.filter(item=>item.id !== recipe.id).push(merged)
+        console.log('update recipe:', merged)
+        recipes = recipes.filter(item=>item.id !== recipe.id)
+        recipes.push(merged)
+        console.log('existing recipe merged => list of recipes', recipes)
         return merged
     } else{
         const newRecipe = {
@@ -111,6 +115,7 @@ export function saveRecipe(recipe){
             ...recipe
           };
           recipes.push(newRecipe);
+          console.log('new recipe => list of recipes', recipes)
           return newRecipe;
     }    
 }
