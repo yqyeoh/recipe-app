@@ -2,9 +2,9 @@ import React from 'react'
 import CreatableSelect from 'react-select/lib/Creatable';
 
 function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredientOptions, handleIngredientSelectChange, handleCreateIngredientOption}) {
-  console.log("ingredients in ingredientInputs", ingredients)
-  console.log("handleIngredientSelectChange", handleIngredientSelectChange)
-  console.log("ingredientOptions", ingredientOptions)
+  // console.log("ingredients in ingredientInputs", ingredients)
+  // console.log("handleIngredientSelectChange", handleIngredientSelectChange)
+  // console.log("ingredientOptions", ingredientOptions)
   
   return (
     <React.Fragment>
@@ -26,7 +26,7 @@ function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredient
 </div>
       </div>
       {ingredients.map((ingredient, index) => {
-        console.log(ingredients[index].ingredientName)
+        // console.log(ingredients[index].ingredientName)
         let ingredientNameId = `ingredient-name-${index}`,
           extraDescriptionId = `extra-description-${index}`,
           qtyId = `qty-${index}`,
@@ -37,12 +37,16 @@ function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredient
             <div className="col-sm-4">
             <CreatableSelect
         onChange={handleIngredientSelectChange(index)}
-        onCreateOption={handleCreateIngredientOption}
+        onCreateOption={handleCreateIngredientOption(index)}
         options={ingredientOptions}
         data-id={index}
         name="ingredientName"
         id={ingredientNameId}
-        value={ingredientOptions.filter(({value}) => value ===ingredients[index].ingredientName)}
+        value={ingredientOptions.filter(({value}) => {
+          // console.log("value", value)
+          // console.log("ingredients[index].ingredientName", ingredients[index].ingredientName)
+          return value ===ingredients[index].ingredientName
+        })}
       />
             </div>
             <div className="col-sm-4">

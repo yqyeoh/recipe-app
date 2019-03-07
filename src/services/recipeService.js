@@ -7,7 +7,7 @@ let recipes = [
         timeRequired: "90",
         servings: 5,
         ingredients: [
-            { ingredientName: "chicken breast", extraDescription: "skinless, boneless", qty: "4", unit: "", },
+            { ingredientName: "chicken breast", extraDescription: "skinless, boneless", qty: "4", unit: ""},
             { ingredientName: "parmesan cheese", extraDescription: "grated", qty: "1/2", unit: "cup" },
             { ingredientName: "eggs", extraDescription:"", qty: "2", unit: "" },
             { ingredientName: "bread crumbs", extraDescription:"", qty: "1", unit: "cup" },
