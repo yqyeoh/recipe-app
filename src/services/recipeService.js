@@ -98,3 +98,19 @@ export function deleteRecipe(id){
     recipes =  recipes.filter(recipe=>recipe.id!==id)
     return found
 }
+
+export function saveRecipe(recipe){
+    let existingRecipe = recipes.find(item=>item.id === recipe.id)
+    if(existingRecipe){
+        const merged = { ...existingRecipe, ...recipe };
+        recipes.filter(item=>item.id !== recipe.id).push(merged)
+        return merged
+    } else{
+        const newRecipe = {
+            id: Date.now().toString(),
+            ...recipe
+          };
+          recipes.push(newRecipe);
+          return newRecipe;
+    }    
+}

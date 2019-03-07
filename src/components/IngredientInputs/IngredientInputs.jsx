@@ -1,7 +1,7 @@
 import React from 'react'
 import CreatableSelect from 'react-select/lib/Creatable';
 
-function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredientOptions, handleIngredientSelectChange, handleCreateIngredientOption}) {
+function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredientOptions, handleIngredientSelectChange, handleCreateIngredientOption, error}) {
   // console.log("ingredients in ingredientInputs", ingredients)
   // console.log("handleIngredientSelectChange", handleIngredientSelectChange)
   // console.log("ingredientOptions", ingredientOptions)
@@ -51,6 +51,10 @@ function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredient
             </div>
             <div className="col-sm-4">
               <input className="form-control" data-id={index} name="extraDescription" type="text" id={extraDescriptionId} value={ingredients[index].extraDescription} />
+              {error && 
+    <div className="alert alert-danger" role="alert">
+        {error}
+    </div>}
             </div>
             <div className="col-sm-1">
               <input className="form-control" data-id={index} name="qty" type="text" id={qtyId} value={ingredients[index].qty} />
@@ -62,14 +66,14 @@ function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredient
               <input className="form-control" data-id={index} name="isOptional" type="checkbox" id={isOptionalId} checked={ingredients[index].isOptional} />
             </div>
             <div className="col-sm-1">
-              <button className="btn btn-danger" data-id={index} onClick={handleDelete} name="ingredients">Delete</button>
+              <button className="btn btn-danger btn-sm" data-id={index} onClick={handleDelete} name="ingredients">Delete</button>
             </div>
           </div>
 
         )
 
       })}
-      <button onClick={addIngredient}>Add New Ingredient</button>
+      <button className="btn btn-success btn-sm" onClick={addIngredient}>Add New Ingredient</button>
     </React.Fragment>
 
   )

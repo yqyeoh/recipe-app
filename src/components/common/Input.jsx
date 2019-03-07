@@ -2,6 +2,7 @@ import React from "react";
 
 
 function Input({ name, label, type = "text", handleChange, value, error}) {
+  // console.log('input error msg', error)
   return (
     <div className="form-group">
       <label htmlFor={`${name}-input`}>{label}</label>
