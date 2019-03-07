@@ -1,12 +1,23 @@
-
 .clickable{
     cursor: pointer
   }
   
-  .goodMatch{
+.goodMatch{
     color: green
   }
   
-  .averageMatch{
+.averageMatch{
     color: orange
   }
+
+.availableIngredients{
+    color: green
+}
+
+.missingIngredients{
+    color: red
+}
+
+.availableIngredientsTitle, .missingIngredientsTitle{
+    font-weight:bold
+}

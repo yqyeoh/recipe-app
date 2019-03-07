@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 import { cloneDeep } from 'lodash'
 import Joi from 'joi-browser'
 import Input from "../common/Input";
@@ -111,7 +112,7 @@ export class RecipeForm extends Component {
       newIngredientOptions: [...newIngredientOptions, newOption],
       ingredientOptions: [...ingredientOptions, newOption]
     }, () => {
-      this.setState({recipe:copyRecipe})
+      this.setState({ recipe: copyRecipe })
       // console.log('state after create new ingredient',this.state)
     })
   }
@@ -157,21 +158,21 @@ export class RecipeForm extends Component {
     this.setState({ recipe: copyRecipe })
   }
 
-  handleSubmit = (e) => {    
+  handleSubmit = (e) => {
     e.preventDefault()
     console.log('handle submit called, event.currentTarget:', e.currentTarget)
-    const {recipe, newIngredientOptions} = this.state
-    const recipeIngredientNames = recipe.ingredients.map(ingredient=>ingredient.ingredientName)
-    const cleansedNewIngredients = newIngredientOptions.filter(newIngredient=> recipeIngredientNames.includes(newIngredient.name)).map(newIngredient=>({name:newIngredient.name, isExcludedFromMatch:false}))
+    const { recipe, newIngredientOptions } = this.state
+    const recipeIngredientNames = recipe.ingredients.map(ingredient => ingredient.ingredientName)
+    const cleansedNewIngredients = newIngredientOptions.filter(newIngredient => recipeIngredientNames.includes(newIngredient.name)).map(newIngredient => ({ name: newIngredient.name, isExcludedFromMatch: false }))
     saveRecipe(recipe)
     saveIngredients(cleansedNewIngredients)
     this.props.history.replace(this.props.returnPath);
 
   }
 
-  validate=()=>{
-    const opts = {abortEarly:false, allowUnknown: true}
-    const result = Joi.validate(this.state.recipe,this.schema,opts)
+  validate = () => {
+    const opts = { abortEarly: false, allowUnknown: true }
+    const result = Joi.validate(this.state.recipe, this.schema, opts)
     console.log('validate result', result)
     return result.error
   }
@@ -184,7 +185,7 @@ export class RecipeForm extends Component {
     console.log('updated ingredients:', this.state.ingredientOptions)
     // console.log('new ingredients:', this.state.newIngredientOptions)
     return (
-      
+
       <div className="container">
         <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
           <Input name="title" label="Title" value={title} error={error.title} />
@@ -200,10 +201,11 @@ export class RecipeForm extends Component {
             </div>
           </div>
           <div className="row"></div>
-              <Input name="imageUrl" label="Image URL" value={imageUrl} error={error.imageUrl} />
+          <Input name="imageUrl" label="Image URL" value={imageUrl} error={error.imageUrl} />
           <IngredientInputs ingredientOptions={ingredientOptions} handleCreateIngredientOption={this.handleCreateIngredientOption} handleIngredientSelectChange={this.handleIngredientSelectChange} ingredients={ingredients} handleDelete={this.handleDelete} addIngredient={this.addIngredient} error={error.ingredientName} />
           <TextArea name="instructions" label="Instructions" value={instructions} error={error.instructions} />
           <button className="btn btn-primary btn-sm" disabled={this.validate()}>Save</button>
+          <Link className="btn btn-danger btn-sm" to="/admin">Cancel</Link>
         </form>
       </div>
     )

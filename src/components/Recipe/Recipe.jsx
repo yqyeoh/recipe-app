@@ -31,8 +31,8 @@ export class Recipe extends Component {
       <h6 className={`card-title ${matchPercentageClass}`}>Matched: {ingredientsMatchPercentage}%</h6>
       <h5 className="card-title">{title}</h5>
       <h6 className="card-subtitle mb-2 text-muted">{cuisine}</h6>
-      <p className="card-text">Available Ingredients {availableIngredients.join(', ')}</p>
-      <p className="card-text">Missing: {missingIngredients.join(', ')}</p>
+      <p className="card-text availableIngredients"><span className="availableIngredientsTitle">Available: </span>{availableIngredients.join(', ')}</p>
+      <p className="card-text missingIngredients"><span className="missingIngredientsTitle">Missing: </span>{missingIngredients.join(', ')}</p>
       
     </div>
     <div className="card-footer">
