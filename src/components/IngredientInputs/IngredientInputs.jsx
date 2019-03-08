@@ -27,9 +27,10 @@ function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredient
           extraDescriptionId = `extra-description-${index}`,
           qtyId = `qty-${index}`,
           unitId = `unit-${index}`,
-          isOptionalId = `is-optional-${index}`
+          isOptionalId = `is-optional-${index}`,
+          deleteId = `delete-${index}`
         return (
-          <div className="row mb-2" key={index}>
+          <div className="row mb-2" data-testid="ingredients-row" key={index}>
             <div className="col-sm-4">
             <CreatableSelect
         onChange={handleIngredientSelectChange(index)}
@@ -37,6 +38,7 @@ function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredient
         options={ingredientOptions}
         data-id={index}
         name="ingredientName"
+        data-testid={ingredientNameId}
         id={ingredientNameId}
         value={ingredientOptions.filter(({value}) => {
           return value ===ingredients[index].ingredientName
@@ -44,19 +46,19 @@ function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredient
       />
             </div>
             <div className="col-sm-4">
-              <input className="form-control" data-id={index} name="extraDescription" type="text" id={extraDescriptionId} value={ingredients[index].extraDescription} onChange={handleIngredientInputChange} />
+              <input className="form-control" data-testid={extraDescriptionId} data-id={index} name="extraDescription" type="text" id={extraDescriptionId} value={ingredients[index].extraDescription} onChange={handleIngredientInputChange} />
             </div>
             <div className="col-sm-1">
-              <input className="form-control" data-id={index} name="qty" type="text" id={qtyId} value={ingredients[index].qty} onChange={handleIngredientInputChange} />
+              <input className="form-control" data-testid={qtyId} data-id={index} name="qty" type="text" id={qtyId} value={ingredients[index].qty} onChange={handleIngredientInputChange} />
             </div>
             <div className="col-sm-1">
-              <input className="form-control" data-id={index} name="unit" type="text" id={unitId} value={ingredients[index].unit} onChange={handleIngredientInputChange} />
+              <input className="form-control" data-testid={unitId} data-id={index} name="unit" type="text" id={unitId} value={ingredients[index].unit} onChange={handleIngredientInputChange} />
             </div>
             <div className="col-sm-1">
-              <input className="form-control" data-id={index} name="isOptional" type="checkbox" id={isOptionalId} checked={ingredients[index].isOptional} onChange={handleIngredientInputChange} />
+              <input className="form-control" data-testid={isOptionalId} data-id={index} name="isOptional" type="checkbox" id={isOptionalId} checked={ingredients[index].isOptional} onChange={handleIngredientInputChange} />
             </div>
             <div className="col-sm-1">
-              <button type="button" className="btn btn-danger btn-sm" data-id={index} onClick={handleDelete} name="ingredients">Delete</button>
+              <button type="button" className="btn btn-danger btn-sm" data-testid={deleteId} data-id={index} id={deleteId} onClick={handleDelete} name="ingredients">Delete</button>
             </div>
           </div>
 

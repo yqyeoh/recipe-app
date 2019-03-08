@@ -34,14 +34,8 @@ export class HomePage extends Component {
             const selectedIngredientsNameArray = this.state.selectedIngredients.map(ingredient => ingredient.name)
             const copyStateRecipes = cloneDeep(this.state.recipes)
             for (var recipe of copyStateRecipes) {
-                // console.log("called recipe loop")
                 for (const selectedIngredientName of selectedIngredientsNameArray) {
-                    // console.log("called selectedIngredientsLoop")
-                    // console.log("selectedIngredientName", selectedIngredientName)
                     for (const ingredient of recipe.ingredients) {
-                        // console.log("called recipeIngredientsLoop")
-                        // console.log(ingredient.ingredientName)
-                        // console.log(selectedIngredientName)
                         if (ingredient.isMatched || ingredient.isOptional) {
                             continue
                         }
@@ -51,16 +45,13 @@ export class HomePage extends Component {
                         }
                     }
                 }
-
                 recipe.availableIngredients = recipe.ingredients.filter(ingredient=>ingredient.isMatched).map(ingredient=>ingredient.ingredientName)
                 recipe.optionalIngredients = recipe.ingredients.filter(ingredient=>ingredient.isOptional).map(ingredient=>ingredient.ingredientName)
                 recipe.missingIngredients = recipe.ingredients.filter(ingredient=>!ingredient.isMatched&&!ingredient.isOptional).map(ingredient=>ingredient.ingredientName)
-                // console.log('missingingredients', recipe.missingIngredients)
                 recipe.ingredientsMatchPercentage = Math.round(recipe.availableIngredients.length / (recipe.ingredients.length- recipe.optionalIngredients.length) * 100)
             }
             const filteredRecipes = copyStateRecipes.filter(recipe => recipe.ingredientsMatchPercentage >= this.state.minimumMatchPercentage).sort((a,b)=>b.ingredientsMatchPercentage-a.ingredientsMatchPercentage)
             this.setState({ filteredRecipes: filteredRecipes }, () => {
-                // console.log('filteredRecipesMoreThan30Percent', this.state.filteredRecipes)
             })
         }
     }
@@ -89,9 +80,6 @@ export class HomePage extends Component {
             {recipe}
             </div>
             </React.Fragment>
-
-
-
         );
     }
 }

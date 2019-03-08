@@ -48,7 +48,6 @@ export class RecipeForm extends Component {
   handleChange = (e) => {
     const target = e.target
     const name = e.target.name
-    console.log( 'handletarget name:',name)
     if (!name) {
       return
     }    
@@ -98,7 +97,7 @@ export class RecipeForm extends Component {
   }
 
   componentDidMount = () => {
-    const id = this.props.match.params ? this.props.match.params.id : null;
+    const id = this.props.match ? this.props.match.params.id : null;
     const recipes = getRecipes()
     const recipeFound = recipes.find(recipe => recipe.id === id)
     const ingredients = cloneDeep(getIngredients())
@@ -125,6 +124,7 @@ export class RecipeForm extends Component {
 
   handleDelete = (e) => {
     const targetButton = e.target.name
+    console.log('target button name', targetButton)
     const updatedData = this.state.recipe[targetButton].filter((item, index) => index !== parseInt(e.target.dataset.id))
     const copyRecipe = cloneDeep(this.state.recipe)
     copyRecipe[targetButton] = updatedData
