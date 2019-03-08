@@ -1,6 +1,6 @@
 import React from "react";
 
-function SelectInput({ name, label, options, onChange, value, error }) {
+function SelectInput({ name, label, options, handleChange, value, error }) {
   return (
     <div className="form-group">
       <label htmlFor={`${name}-input`}>{label}</label>
@@ -9,7 +9,7 @@ function SelectInput({ name, label, options, onChange, value, error }) {
         className="custom-select"
         id={`${name}-input`}
         name={name}
-        onChange={onChange}
+        onChange={handleChange}
       >
         <option key="default" value="">Choose One</option>
         {options.map(option => (

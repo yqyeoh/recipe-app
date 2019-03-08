@@ -1,10 +1,7 @@
 import React from 'react'
 import CreatableSelect from 'react-select/lib/Creatable';
 
-function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredientOptions, handleIngredientSelectChange, handleCreateIngredientOption, error}) {
-  // console.log("ingredients in ingredientInputs", ingredients)
-  // console.log("handleIngredientSelectChange", handleIngredientSelectChange)
-  // console.log("ingredientOptions", ingredientOptions)
+function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredientOptions, handleIngredientInputChange, handleIngredientSelectChange, handleCreateIngredientOption, error}) {
   
   return (
     <React.Fragment>
@@ -26,7 +23,6 @@ function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredient
 </div>
       </div>
       {ingredients.map((ingredient, index) => {
-        // console.log(ingredients[index].ingredientName)
         let ingredientNameId = `ingredient-name-${index}`,
           extraDescriptionId = `extra-description-${index}`,
           qtyId = `qty-${index}`,
@@ -43,27 +39,21 @@ function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredient
         name="ingredientName"
         id={ingredientNameId}
         value={ingredientOptions.filter(({value}) => {
-          // console.log("value", value)
-          // console.log("ingredients[index].ingredientName", ingredients[index].ingredientName)
           return value ===ingredients[index].ingredientName
         })}
       />
             </div>
             <div className="col-sm-4">
-              <input className="form-control" data-id={index} name="extraDescription" type="text" id={extraDescriptionId} value={ingredients[index].extraDescription} />
-              {error && 
-    <div className="alert alert-danger" role="alert">
-        {error}
-    </div>}
+              <input className="form-control" data-id={index} name="extraDescription" type="text" id={extraDescriptionId} value={ingredients[index].extraDescription} onChange={handleIngredientInputChange} />
             </div>
             <div className="col-sm-1">
-              <input className="form-control" data-id={index} name="qty" type="text" id={qtyId} value={ingredients[index].qty} />
+              <input className="form-control" data-id={index} name="qty" type="text" id={qtyId} value={ingredients[index].qty} onChange={handleIngredientInputChange} />
             </div>
             <div className="col-sm-1">
-              <input className="form-control" data-id={index} name="unit" type="text" id={unitId} value={ingredients[index].unit} />
+              <input className="form-control" data-id={index} name="unit" type="text" id={unitId} value={ingredients[index].unit} onChange={handleIngredientInputChange} />
             </div>
             <div className="col-sm-1">
-              <input className="form-control" data-id={index} name="isOptional" type="checkbox" id={isOptionalId} checked={ingredients[index].isOptional} />
+              <input className="form-control" data-id={index} name="isOptional" type="checkbox" id={isOptionalId} checked={ingredients[index].isOptional} onChange={handleIngredientInputChange} />
             </div>
             <div className="col-sm-1">
               <button type="button" className="btn btn-danger btn-sm" data-id={index} onClick={handleDelete} name="ingredients">Delete</button>
