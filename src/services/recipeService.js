@@ -246,7 +246,7 @@ let recipes = [
 ]
 
 export function getRecipes(){
-    return recipes
+    return recipes.sort((a,b)=>a.title.localeCompare(b.title))
 }
 
 export function deleteRecipe(id){
@@ -256,14 +256,11 @@ export function deleteRecipe(id){
 }
 
 export function saveRecipe(recipe){
-    console.log('saveRecipe in recipeService', recipe)
     let existingRecipe = recipes.find(item=>item.id === recipe.id)
     if(existingRecipe){
         const merged = { ...existingRecipe, ...recipe };
-        console.log('update recipe:', merged)
         recipes = recipes.filter(item=>item.id !== recipe.id)
         recipes.push(merged)
-        console.log('existing recipe merged => list of recipes', recipes)
         return merged
     } else{
         const newRecipe = {
@@ -271,7 +268,27 @@ export function saveRecipe(recipe){
             ...recipe
           };
           recipes.push(newRecipe);
-          console.log('new recipe => list of recipes', recipes)
           return newRecipe;
     }    
+}
+
+export function filterRecipes(selectedIngredients, recipes, minimumMatchPercentage){
+    for (var recipe of recipes) {
+        for (const selectedIngredientName of selectedIngredients) {
+            for (const ingredient of recipe.ingredients) {
+                if (ingredient.isMatched || ingredient.isOptional) {
+                    continue
+                }
+                if (ingredient.ingredientName === selectedIngredientName) {
+                    ingredient.isMatched = true
+                    break
+                }
+            }
+        }
+        recipe.availableIngredients = recipe.ingredients.filter(ingredient=>ingredient.isMatched).map(ingredient=>ingredient.ingredientName)
+        recipe.optionalIngredients = recipe.ingredients.filter(ingredient=>ingredient.isOptional).map(ingredient=>ingredient.ingredientName)
+        recipe.missingIngredients = recipe.ingredients.filter(ingredient=>!ingredient.isMatched&&!ingredient.isOptional).map(ingredient=>ingredient.ingredientName)
+        recipe.ingredientsMatchPercentage = Math.round(recipe.availableIngredients.length / (recipe.ingredients.length- recipe.optionalIngredients.length) * 100)
+    }
+    return recipes.filter(recipe => recipe.ingredientsMatchPercentage >= minimumMatchPercentage).sort((a,b)=>b.ingredientsMatchPercentage-a.ingredientsMatchPercentage)
 }

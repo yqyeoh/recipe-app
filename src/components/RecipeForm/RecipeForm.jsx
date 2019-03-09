@@ -6,7 +6,7 @@ import Input from "../common/Input";
 import TextArea from "../common/TextArea";
 import { getRecipes, saveRecipe } from '../../services/recipeService'
 import IngredientInputs from '../IngredientInputs/IngredientInputs'
-import { getIngredients, saveIngredients } from '../../services/ingredientService'
+import { getIngredients, saveIngredients, ingredientsAddLabelValueProperty} from '../../services/ingredientService'
 import SelectInput from '../common/SelectInput'
 import { getCuisines } from '../../services/cuisineService'
 
@@ -66,27 +66,29 @@ export class RecipeForm extends Component {
     this.setState({ recipe: copyRecipe })
   }
 
-  handleIngredientInputChange = e =>{
+  //handle ingredient name change
+  handleIngredientSelectChange = (idx, value)=>{
+    const copyRecipe = cloneDeep(this.state.recipe)
+    copyRecipe.ingredients[idx].ingredientName = value.name
+    this.setState({ recipe: copyRecipe })
+  }
+
+  //handle ingredient input fields change, excluding ingredient name
+  handleIngredientInputChange = (idx, e) =>{
     const target = e.target
     const name = e.target.name
     const copyRecipe = cloneDeep(this.state.recipe)
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    copyRecipe.ingredients[target.dataset.id][name] = value
+    copyRecipe.ingredients[idx][name] = value
     this.setState({ recipe: copyRecipe })
   }
 
-  handleIngredientSelectChange = id => value => {
-    const copyRecipe = cloneDeep(this.state.recipe)
-    copyRecipe.ingredients[id].ingredientName = value.name
-    this.setState({ recipe: copyRecipe })
-  }
-
-  handleCreateIngredientOption = id => value => {
+  handleCreateIngredientOption = idx => value => {
     value = value.toLowerCase()
     const newOption = { name: value, label: value, value: value }
     const { newIngredientOptions, ingredientOptions } = this.state
     const copyRecipe = cloneDeep(this.state.recipe)
-    copyRecipe.ingredients[id].ingredientName = value
+    copyRecipe.ingredients[idx].ingredientName = value
 
     this.setState({
       newIngredientOptions: [...newIngredientOptions, newOption],
@@ -101,13 +103,7 @@ export class RecipeForm extends Component {
     const recipes = getRecipes()
     const recipeFound = recipes.find(recipe => recipe.id === id)
     const ingredients = cloneDeep(getIngredients())
-    const ingredientOptions = ingredients.map(ingredient => {
-      ingredient.label = ingredient.name
-      ingredient.value = ingredient.name
-      return ingredient
-    }).sort((a, b) => {
-      return a.name.localeCompare(b.name)
-    })
+    const ingredientOptions = ingredientsAddLabelValueProperty(ingredients)
     if (recipeFound) {
       const copyRecipe = cloneDeep(recipeFound)
       this.setState({ recipe: copyRecipe, ingredientOptions: ingredientOptions })
@@ -122,10 +118,9 @@ export class RecipeForm extends Component {
     this.setState({ recipe: copyRecipe })
   }
 
-  handleDelete = (e) => {
+  handleDelete = (idx, e) => {
     const targetButton = e.target.name
-    console.log('target button name', targetButton)
-    const updatedData = this.state.recipe[targetButton].filter((item, index) => index !== parseInt(e.target.dataset.id))
+    const updatedData = this.state.recipe[targetButton].filter((item, index) => index !== parseInt(idx))
     const copyRecipe = cloneDeep(this.state.recipe)
     copyRecipe[targetButton] = updatedData
     this.setState({ recipe: copyRecipe })

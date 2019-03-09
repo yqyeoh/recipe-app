@@ -86,15 +86,25 @@ let ingredients = [{ id: 1, name: "chicken", isExcludedFromMatch: false },
 ]
 
 export function getIngredients(){
-    return ingredients
+    return ingredients.sort((a,b)=>{
+        return a.name.localeCompare(b.name)
+    })
 }
 
 export function saveIngredients(newIngredients){
     if (newIngredients.length===0) return
     console.log('newIngredients in ingredient service', newIngredients)
-    newIngredients = newIngredients.map(ingredient=>({...ingredient, id:Date.now().toString()}))
+    newIngredients = newIngredients.map((ingredient,index)=>({...ingredient, id:Date.now().toString()+index}))
     ingredients = [...ingredients, ...newIngredients]
     console.log('ingredients list =>',ingredients)
 
     return newIngredients
+}
+
+export function ingredientsAddLabelValueProperty(ingredients){
+    return ingredients.map(ingredient => {
+        ingredient.label = ingredient.name
+        ingredient.value = ingredient.name
+        return ingredient
+      })
 }

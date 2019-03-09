@@ -22,9 +22,7 @@ export class AdminPage extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevState.inputKeyword !== this.state.inputKeyword || prevState.recipes !== this.state.recipes) {
             const filteredRecipes = this.state.recipes.filter(recipe => recipe.title.toLowerCase().includes(this.state.inputKeyword.toLowerCase()))
-            this.setState({ filteredRecipes }, () => {
-                // console.log('filtered Recipes', filteredRecipes)
-            })
+            this.setState({ filteredRecipes })
         }
     }
 

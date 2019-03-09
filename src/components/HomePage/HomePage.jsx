@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { cloneDeep } from 'lodash'
 import Select from 'react-select';
 import makeAnimated from 'react-select/lib/animated'
-import { getRecipes } from '../../services/recipeService'
-import { getIngredients } from '../../services/ingredientService'
+import { getRecipes, filterRecipes } from '../../services/recipeService'
+import { getIngredients, ingredientsAddLabelValueProperty } from '../../services/ingredientService'
 import Recipe from '../Recipe/Recipe'
 
 
@@ -13,57 +13,32 @@ export class HomePage extends Component {
         recipes: [],
         ingredients: [],
         filteredRecipes: [],
-        minimumMatchPercentage:30
+        minimumMatchPercentage:1
     }
 
     componentDidMount() {
         this.setState({
             recipes: getRecipes(),
-            ingredients: getIngredients().map(ingredient => {
-                ingredient.label = ingredient.name
-                ingredient.value = ingredient.name
-                return ingredient
-            }).sort((a, b) => {
-                return a.name.localeCompare(b.name)
-            })
+            ingredients: ingredientsAddLabelValueProperty(getIngredients())
         })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.state.selectedIngredients !== prevState.selectedIngredients) {
-            const selectedIngredientsNameArray = this.state.selectedIngredients.map(ingredient => ingredient.name)
-            const copyStateRecipes = cloneDeep(this.state.recipes)
-            for (var recipe of copyStateRecipes) {
-                for (const selectedIngredientName of selectedIngredientsNameArray) {
-                    for (const ingredient of recipe.ingredients) {
-                        if (ingredient.isMatched || ingredient.isOptional) {
-                            continue
-                        }
-                        if (ingredient.ingredientName === selectedIngredientName) {
-                            ingredient.isMatched = true
-                            break
-                        }
-                    }
-                }
-                recipe.availableIngredients = recipe.ingredients.filter(ingredient=>ingredient.isMatched).map(ingredient=>ingredient.ingredientName)
-                recipe.optionalIngredients = recipe.ingredients.filter(ingredient=>ingredient.isOptional).map(ingredient=>ingredient.ingredientName)
-                recipe.missingIngredients = recipe.ingredients.filter(ingredient=>!ingredient.isMatched&&!ingredient.isOptional).map(ingredient=>ingredient.ingredientName)
-                recipe.ingredientsMatchPercentage = Math.round(recipe.availableIngredients.length / (recipe.ingredients.length- recipe.optionalIngredients.length) * 100)
-            }
-            const filteredRecipes = copyStateRecipes.filter(recipe => recipe.ingredientsMatchPercentage >= this.state.minimumMatchPercentage).sort((a,b)=>b.ingredientsMatchPercentage-a.ingredientsMatchPercentage)
-            this.setState({ filteredRecipes: filteredRecipes }, () => {
-            })
+        const {selectedIngredients, recipes, minimumMatchPercentage } = this.state
+        if (selectedIngredients !== prevState.selectedIngredients) {
+            const selectedIngredientsNameArray = selectedIngredients.map(ingredient => ingredient.name)
+            const copyStateRecipes = cloneDeep(recipes)
+            const filteredRecipes = filterRecipes(selectedIngredientsNameArray, copyStateRecipes, minimumMatchPercentage)         
+            this.setState({ filteredRecipes: filteredRecipes })
         }
     }
 
     handleChange = (selectedIngredients) => {
-        // console.log('selectedIngredients', selectedIngredients)
         this.setState({ selectedIngredients: selectedIngredients })
     }
 
     render() {
-        const { selectedIngredients, filteredRecipes } = this.state;
-        // console.log('filteredRecipes', filteredRecipes)       
+        const { selectedIngredients, filteredRecipes } = this.state;    
         const recipe=filteredRecipes.map(item=><Recipe key={item.id} recipe={item}/>)
         return (
             <React.Fragment>
