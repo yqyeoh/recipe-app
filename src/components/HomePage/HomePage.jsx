@@ -8,6 +8,9 @@ import Recipe from '../Recipe/Recipe'
 
 
 export class HomePage extends Component {
+
+    _isMounted=false
+
     state = {
         selectedIngredients: null,
         recipes: [],
@@ -16,11 +19,16 @@ export class HomePage extends Component {
         minimumMatchPercentage:1
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        if(this._isMounted)
         this.setState({
-            recipes: getRecipes(),
-            ingredients: ingredientsAddLabelValueProperty(getIngredients())
+            recipes: await getRecipes(),
+            ingredients: ingredientsAddLabelValueProperty(await getIngredients())
         })
+    }
+
+    componentWillUnmount(){
+        this._isMounted=false
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {

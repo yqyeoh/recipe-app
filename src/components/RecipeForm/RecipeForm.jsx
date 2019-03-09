@@ -12,6 +12,9 @@ import { getCuisines } from '../../services/cuisineService'
 
 
 export class RecipeForm extends Component {
+
+  _isMounted= false
+
   state = {
     recipe: {
       title: "",
@@ -22,6 +25,7 @@ export class RecipeForm extends Component {
       ingredients: [{ ingredientName: "", extraDescription: "", qty: "", unit: "", isOptional: false }],
       instructions: ""
     },
+    cuisines:[],
     ingredientOptions: [],
     newIngredientOptions: [],
     error: ""
@@ -98,18 +102,26 @@ export class RecipeForm extends Component {
     })
   }
 
-  componentDidMount = () => {
+  async componentDidMount(){
+    this._isMounted=true
     const id = this.props.match ? this.props.match.params.id : null;
-    const recipes = getRecipes()
+    const cuisines = await getCuisines()
+    const recipes = await getRecipes()
     const recipeFound = recipes.find(recipe => recipe.id === id)
-    const ingredients = cloneDeep(getIngredients())
+    const ingredients = cloneDeep(await getIngredients())
     const ingredientOptions = ingredientsAddLabelValueProperty(ingredients)
-    if (recipeFound) {
-      const copyRecipe = cloneDeep(recipeFound)
-      this.setState({ recipe: copyRecipe, ingredientOptions: ingredientOptions })
-    } else {
-      this.setState({ ingredientOptions: ingredientOptions })
+    if(this._isMounted){
+      if (recipeFound) {
+        const copyRecipe = cloneDeep(recipeFound)
+        this.setState({ recipe: copyRecipe, ingredientOptions: ingredientOptions, cuisines:cuisines })
+      } else {
+        this.setState({ ingredientOptions: ingredientOptions, cuisines:cuisines })
+      }
     }
+  }
+
+  componentWillUnmount(){
+    this._isMounted = false
   }
 
   addIngredient = () => {
@@ -126,12 +138,12 @@ export class RecipeForm extends Component {
     this.setState({ recipe: copyRecipe })
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault()
     const { recipe, newIngredientOptions } = this.state
     const recipeIngredientNames = recipe.ingredients.map(ingredient => ingredient.ingredientName)
     const cleansedNewIngredients = newIngredientOptions.filter(newIngredient => recipeIngredientNames.includes(newIngredient.name)).map(newIngredient => ({ name: newIngredient.name, isExcludedFromMatch: false }))
-    saveRecipe(recipe)
+    await saveRecipe(recipe)
     saveIngredients(cleansedNewIngredients)
     this.props.history.replace(this.props.returnPath);
 
@@ -145,7 +157,7 @@ export class RecipeForm extends Component {
 
   render() {
     const { title, cuisine, servings, timeRequired, imageUrl, ingredients, instructions } = this.state.recipe
-    const { error, ingredientOptions } = this.state
+    const { error, ingredientOptions, cuisines } = this.state
     return (
 
       <div className="container">
@@ -153,7 +165,7 @@ export class RecipeForm extends Component {
           <Input name="title" label="Title" value={title} error={error.title} handleChange={this.handleChange} />
           <div className="row">
             <div className="col-sm-4">
-              <SelectInput name="cuisine" label="Cuisine" value={cuisine} handleChange={this.handleChange} error={error.cuisine} options={getCuisines()} />
+              <SelectInput name="cuisine" label="Cuisine" value={cuisine} handleChange={this.handleChange} error={error.cuisine} options={cuisines} />
             </div>
             <div className="col-sm-4">
               <Input name="servings" label="Servings" value={servings} handleChange={this.handleChange} error={error.servings} />
