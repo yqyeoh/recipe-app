@@ -35,7 +35,7 @@ describe("Recipe Card", () => {
             </Router>
         )
         expect(getByText('Mojito Shrimp')).toBeInTheDocument()
-        expect(getByText('Matched: 50%')).toBeInTheDocument()
+        expect(getByText('Match: 50%')).toBeInTheDocument()
         expect(getByText(/mojito marinade/i)).toBeInTheDocument()
         expect(getByText(/lime juice/i)).toBeInTheDocument()
     })

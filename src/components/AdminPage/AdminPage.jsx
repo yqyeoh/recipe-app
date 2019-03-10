@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { getRecipes, deleteRecipe } from '../../services/recipeService'
 import AdminRecipeCard from '../AdminRecipeCard/AdminRecipeCard'
+import './AdminPage.css'
 
 
 export class AdminPage extends Component {
@@ -58,14 +59,17 @@ export class AdminPage extends Component {
 
         return (
             <div>
-                <div>
-                    <input type="text" onChange={this.handleChange} value={inputKeyword} placeholder="search by recipe title" />
-                    <Link className="btn btn-primary btn-sm mb-2" to="/recipe/new">Create New</Link>
+                <div className="row">
+                <div className='col-sm-6'>
+                    <input className='form-control' type="text" onChange={this.handleChange} value={inputKeyword} placeholder="search by recipe title" />
+                </div>
+                <div className='col-sm-6 newRecipeDiv'>
+                    <Link className="btn btn-success " to="/recipe/new">Create New Recipe</Link>
+                </div>
                 </div>
                 <div className="row">
                     {filteredRecipes.map(recipe => <AdminRecipeCard key={recipe.id} id={recipe.id} title={recipe.title} imageUrl={recipe.imageUrl} cuisine={recipe.cuisine} handleDelete={this.handleDelete} />)}
                 </div>
-
             </div>
         )
     }

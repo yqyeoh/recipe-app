@@ -50,6 +50,7 @@ export class HomePage extends Component {
                     isMulti
                     isClearable
                     components={makeAnimated()}
+                    placeholder="enter your available ingredients..."
                     className="mt-5"
                 />
                 <div className="row">

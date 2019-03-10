@@ -1,0 +1,13 @@
+.card-deck{
+    margin-right:0;
+    margin-left:0
+}
+
+.card-deck .card{
+    margin-right:0;
+    margin-left:0
+}
+
+.card-footer{
+    text-align: right
+}

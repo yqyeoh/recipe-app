@@ -174,12 +174,17 @@ export class RecipeForm extends Component {
               <Input name="timeRequired" label="Time Required (mins)" value={timeRequired} handleChange={this.handleChange} error={error.timeRequired} />
             </div>
           </div>
-          <div className="row"></div>
+          
           <Input name="imageUrl" label="Image URL" value={imageUrl} error={error.imageUrl} handleChange={this.handleChange} />
           <IngredientInputs ingredientOptions={ingredientOptions} handleIngredientInputChange={this.handleIngredientInputChange} handleCreateIngredientOption={this.handleCreateIngredientOption} handleIngredientSelectChange={this.handleIngredientSelectChange} ingredients={ingredients} handleDelete={this.handleDelete} addIngredient={this.addIngredient} error={error.ingredientName} />
           <TextArea name="instructions" label="Instructions" value={instructions} error={error.instructions} handleChange={this.handleChange} />
-          <button className="btn btn-primary btn-sm" disabled={this.validate()}>Save</button>
-          <Link className="btn btn-danger btn-sm" to="/admin">Cancel</Link>
+          <div className="row mb-5">
+          <div className='col-md'>          
+          <button className="btn btn-primary btn" disabled={this.validate()}>Save</button>
+          <Link className="btn btn-danger btn" style={{marginLeft:"10px"}} to="/admin">Cancel</Link>
+          </div>
+
+          </div>
         </form>
       </div>
     )

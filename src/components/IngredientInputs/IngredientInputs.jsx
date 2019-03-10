@@ -5,17 +5,17 @@ function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredient
 
   return (
     <React.Fragment>
-      <div className="row">
-        <div className="col-sm-4">
+      <div className="row mb-2">
+        <div className="col-sm-3">
           Ingredient Name
             </div>
-        <div className="col-sm-4">
+        <div className="col-sm-3">
           Extra Description
         </div>
-        <div className="col-sm-1">
+        <div className="col-sm-2">
           Quantity
     </div>
-        <div className="col-sm-1">
+        <div className="col-sm-2">
           Unit
 </div>
         <div className="col-sm-1">
@@ -31,7 +31,7 @@ function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredient
           deleteId = `delete-${index}`
         return (
           <div className="row mb-2" data-testid="ingredients-row" key={index}>
-            <div className="col-sm-4">
+            <div className="col-sm-3">
               <CreatableSelect
                 onChange={(value) => handleIngredientSelectChange(index, value)}
                 onCreateOption={handleCreateIngredientOption(index)}
@@ -41,27 +41,27 @@ function IngredientInputs({ ingredients, handleDelete, addIngredient, ingredient
                 })}
               />
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-3">
               <input className="form-control" data-testid={extraDescriptionId} name="extraDescription" type="text" id={extraDescriptionId} value={ingredients[index].extraDescription} onChange={(e) => handleIngredientInputChange(index, e)} />
             </div>
-            <div className="col-sm-1">
+            <div className="col-sm-2">
               <input className="form-control" data-testid={qtyId} name="qty" type="text" id={qtyId} value={ingredients[index].qty} onChange={(e) => handleIngredientInputChange(index, e)} />
             </div>
-            <div className="col-sm-1">
+            <div className="col-sm-2">
               <input className="form-control" data-testid={unitId} name="unit" type="text" id={unitId} value={ingredients[index].unit} onChange={(e) => handleIngredientInputChange(index, e)} />
             </div>
             <div className="col-sm-1">
               <input className="form-control" data-testid={isOptionalId} name="isOptional" type="checkbox" id={isOptionalId} checked={ingredients[index].isOptional} onChange={(e) => handleIngredientInputChange(index, e)} />
             </div>
             <div className="col-sm-1">
-              <button type="button" className="btn btn-danger btn-sm" data-testid={deleteId} id={deleteId} onClick={(e) => handleDelete(index, e)} name="ingredients">Delete</button>
+              <button type="button" className="btn btn-danger btn deleteBtn" data-testid={deleteId} id={deleteId} onClick={(e) => handleDelete(index, e)} name="ingredients">Delete</button>
             </div>
           </div>
 
         )
 
       })}
-      <button type="button" className="btn btn-success btn-sm" onClick={addIngredient}>Add New Ingredient</button>
+      <button type="button" className="btn btn-success btn mb-2" onClick={addIngredient}>Add New Ingredient</button>
     </React.Fragment>
 
   )

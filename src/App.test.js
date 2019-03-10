@@ -6,7 +6,7 @@ import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import App from './App'
 import * as recipeService from './services/recipeService'
-import { debug } from "util";
+
 
 beforeEach(() => {
   let sampleData = [
@@ -107,7 +107,7 @@ describe('App', () => {
     const AdminLink = getByText('Admin')
     fireEvent.click(AdminLink)
 
-    const newRecipeBtn = await waitForElement(() => getByText('Create New'))
+    const newRecipeBtn = await waitForElement(() => getByText('Create New Recipe'))
     fireEvent.click(newRecipeBtn)
     await wait(() => expect(getByText('New Recipe')).toBeInTheDocument())
   })

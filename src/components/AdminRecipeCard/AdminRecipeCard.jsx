@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import './AdminRecipeCard.css'
 
 function AdminRecipeCard({ id, title, imageUrl, cuisine, handleDelete }) {
     return (
         <React.Fragment>
-            <div className="col-sm-3 card-deck mt-3">
+            <div className="col-lg-3 col-md-4 col-sm-6 card-deck mt-5">
                 <div className="card">
                     <img className="card-img-top" src={imageUrl} alt="food" />
                     <div className="card-body">
