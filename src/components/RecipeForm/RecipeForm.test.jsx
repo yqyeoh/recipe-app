@@ -84,8 +84,6 @@ describe("Recipe Form", () => {
         const firstIngredientDeleteBtn = getByTestId("delete-0");
         fireEvent.click(firstIngredientDeleteBtn)
         expect(queryAllByTestId("ingredients-row").length).toEqual(0)
-
     })
-
 
 })

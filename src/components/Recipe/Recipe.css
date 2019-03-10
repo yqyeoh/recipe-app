@@ -11,13 +11,17 @@
   }
 
 .availableIngredients{
-    color: green
+    color: #0c7c1a
 }
 
 .missingIngredients{
-    color: red
+    color: #e51d1d
 }
 
 .availableIngredientsTitle, .missingIngredientsTitle{
     font-weight:bold
+}
+
+p{
+  line-height: 1.2
 }

@@ -22,8 +22,14 @@ const defaultCuisine = {
   name: "All"
 };
 
-export function getCuisines() {
-  return cuisines;
+export async function getCuisines() {
+  try{
+    return Promise.resolve(cuisines.sort((a,b)=>{
+        return a.name.localeCompare(b.name)
+    }))
+} catch(error){
+    console.error(error)
+}
 }
 
 export function getDefaultCuisine() {

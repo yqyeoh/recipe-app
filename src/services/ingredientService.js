@@ -85,19 +85,18 @@ let ingredients = [{ id: 1, name: "chicken", isExcludedFromMatch: false },
 { id: 80, name: "pepper", isExcludedFromMatch: true },
 ]
 
-export function getIngredients(){
-    return ingredients.sort((a,b)=>{
-        return a.name.localeCompare(b.name)
-    })
+export async function getIngredients(){
+    try{
+        return Promise.resolve(ingredients.sort((a,b)=>a.name.localeCompare(b.name)))
+    } catch(error){
+        console.error(error)
+    }    
 }
 
-export function saveIngredients(newIngredients){
+export async function saveIngredients(newIngredients){
     if (newIngredients.length===0) return
-    console.log('newIngredients in ingredient service', newIngredients)
     newIngredients = newIngredients.map((ingredient,index)=>({...ingredient, id:Date.now().toString()+index}))
     ingredients = [...ingredients, ...newIngredients]
-    console.log('ingredients list =>',ingredients)
-
     return newIngredients
 }
 

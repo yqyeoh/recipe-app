@@ -245,31 +245,41 @@ let recipes = [
     },
 ]
 
-export function getRecipes(){
-    return recipes.sort((a,b)=>a.title.localeCompare(b.title))
+export async function getRecipes(){
+    try{
+        return Promise.resolve(recipes.sort((a,b)=>a.title.localeCompare(b.title)))
+    } catch(error){
+        console.error(error)
+    }    
 }
 
-export function deleteRecipe(id){
-    const found = recipes.find(recipe=>recipe.id===id)
-    recipes =  recipes.filter(recipe=>recipe.id!==id)
-    return found
+export async function deleteRecipe(id){
+    try{
+        const found = recipes.find(recipe=>recipe.id===id)
+        recipes =  recipes.filter(recipe=>recipe.id!==id)
+        return Promise.resolve(found)
+    } catch(error){
+        console.error(error)
+    }    
 }
 
-export function saveRecipe(recipe){
+export async function saveRecipe(recipe){
     let existingRecipe = recipes.find(item=>item.id === recipe.id)
+    let savedRecipe
     if(existingRecipe){
         const merged = { ...existingRecipe, ...recipe };
         recipes = recipes.filter(item=>item.id !== recipe.id)
         recipes.push(merged)
-        return merged
+        savedRecipe = merged
     } else{
         const newRecipe = {
             id: Date.now().toString(),
             ...recipe
           };
           recipes.push(newRecipe);
-          return newRecipe;
-    }    
+          savedRecipe = newRecipe;
+    }
+    return Promise.resolve(savedRecipe)
 }
 
 export function filterRecipes(selectedIngredients, recipes, minimumMatchPercentage){
