@@ -6,7 +6,7 @@ import AdminRecipeCard from '../AdminRecipeCard/AdminRecipeCard'
 
 export class AdminPage extends Component {
 
-    _isMounted=false
+    _isMounted = false
 
     state = {
         recipes: [],
@@ -15,42 +15,42 @@ export class AdminPage extends Component {
     }
 
     async componentDidMount() {
-        this._isMounted=true
+        this._isMounted = true
         const recipes = await getRecipes()
-        if (this._isMounted){
+        if (this._isMounted) {
             this.setState({
                 recipes: recipes,
                 filteredRecipes: recipes
             })
-        }        
+        }
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this._isMounted = false
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.inputKeyword !== this.state.inputKeyword || prevState.recipes !== this.state.recipes) {
             const filteredRecipes = this.state.recipes.filter(recipe => recipe.title.toLowerCase().includes(this.state.inputKeyword.toLowerCase()))
-            if(this._isMounted){
+            if (this._isMounted) {
                 this.setState({ filteredRecipes })
-            }            
+            }
         }
     }
 
     handleChange = (event) => {
-        if(this._isMounted){
+        if (this._isMounted) {
             this.setState({
                 inputKeyword: event.target.value
             })
-        }        
+        }
     }
 
     handleDelete = async (id) => {
         await deleteRecipe(id)
-        if(this._isMounted){
+        if (this._isMounted) {
             this.setState({ recipes: await getRecipes() })
-        }        
+        }
     }
 
     render() {

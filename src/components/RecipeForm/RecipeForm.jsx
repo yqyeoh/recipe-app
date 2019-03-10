@@ -6,14 +6,14 @@ import Input from "../common/Input";
 import TextArea from "../common/TextArea";
 import { getRecipes, saveRecipe } from '../../services/recipeService'
 import IngredientInputs from '../IngredientInputs/IngredientInputs'
-import { getIngredients, saveIngredients, ingredientsAddLabelValueProperty} from '../../services/ingredientService'
+import { getIngredients, saveIngredients, ingredientsAddLabelValueProperty } from '../../services/ingredientService'
 import SelectInput from '../common/SelectInput'
 import { getCuisines } from '../../services/cuisineService'
 
 
 export class RecipeForm extends Component {
 
-  _isMounted= false
+  _isMounted = false
 
   state = {
     recipe: {
@@ -25,7 +25,7 @@ export class RecipeForm extends Component {
       ingredients: [{ ingredientName: "", extraDescription: "", qty: "", unit: "", isOptional: false }],
       instructions: ""
     },
-    cuisines:[],
+    cuisines: [],
     ingredientOptions: [],
     newIngredientOptions: [],
     error: ""
@@ -54,7 +54,7 @@ export class RecipeForm extends Component {
     const name = e.target.name
     if (!name) {
       return
-    }    
+    }
     const copyRecipe = cloneDeep(this.state.recipe)
     const copy = { ...this.state.error }
     const isInvalid = this.validateField(name, target.value)
@@ -71,14 +71,14 @@ export class RecipeForm extends Component {
   }
 
   //handle ingredient name change
-  handleIngredientSelectChange = (idx, value)=>{
+  handleIngredientSelectChange = (idx, value) => {
     const copyRecipe = cloneDeep(this.state.recipe)
     copyRecipe.ingredients[idx].ingredientName = value.name
     this.setState({ recipe: copyRecipe })
   }
 
   //handle ingredient input fields change, excluding ingredient name
-  handleIngredientInputChange = (idx, e) =>{
+  handleIngredientInputChange = (idx, e) => {
     const target = e.target
     const name = e.target.name
     const copyRecipe = cloneDeep(this.state.recipe)
@@ -102,25 +102,25 @@ export class RecipeForm extends Component {
     })
   }
 
-  async componentDidMount(){
-    this._isMounted=true
+  async componentDidMount() {
+    this._isMounted = true
     const id = this.props.match ? this.props.match.params.id : null;
     const cuisines = await getCuisines()
     const recipes = await getRecipes()
     const recipeFound = recipes.find(recipe => recipe.id === id)
     const ingredients = cloneDeep(await getIngredients())
     const ingredientOptions = ingredientsAddLabelValueProperty(ingredients)
-    if(this._isMounted){
+    if (this._isMounted) {
       if (recipeFound) {
         const copyRecipe = cloneDeep(recipeFound)
-        this.setState({ recipe: copyRecipe, ingredientOptions: ingredientOptions, cuisines:cuisines })
+        this.setState({ recipe: copyRecipe, ingredientOptions: ingredientOptions, cuisines: cuisines })
       } else {
-        this.setState({ ingredientOptions: ingredientOptions, cuisines:cuisines })
+        this.setState({ ingredientOptions: ingredientOptions, cuisines: cuisines })
       }
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this._isMounted = false
   }
 
@@ -159,8 +159,8 @@ export class RecipeForm extends Component {
     const { title, cuisine, servings, timeRequired, imageUrl, ingredients, instructions } = this.state.recipe
     const { error, ingredientOptions, cuisines } = this.state
     return (
-
       <div className="container">
+        <h3>{title ? "Edit Recipe" : "New Recipe"}</h3>
         <form onSubmit={this.handleSubmit}>
           <Input name="title" label="Title" value={title} error={error.title} handleChange={this.handleChange} />
           <div className="row">
@@ -175,8 +175,8 @@ export class RecipeForm extends Component {
             </div>
           </div>
           <div className="row"></div>
-          <Input name="imageUrl" label="Image URL" value={imageUrl} error={error.imageUrl} handleChange={this.handleChange}/>
-          <IngredientInputs ingredientOptions={ingredientOptions} handleIngredientInputChange= {this.handleIngredientInputChange} handleCreateIngredientOption={this.handleCreateIngredientOption} handleIngredientSelectChange={this.handleIngredientSelectChange} ingredients={ingredients} handleDelete={this.handleDelete} addIngredient={this.addIngredient} error={error.ingredientName} />
+          <Input name="imageUrl" label="Image URL" value={imageUrl} error={error.imageUrl} handleChange={this.handleChange} />
+          <IngredientInputs ingredientOptions={ingredientOptions} handleIngredientInputChange={this.handleIngredientInputChange} handleCreateIngredientOption={this.handleCreateIngredientOption} handleIngredientSelectChange={this.handleIngredientSelectChange} ingredients={ingredients} handleDelete={this.handleDelete} addIngredient={this.addIngredient} error={error.ingredientName} />
           <TextArea name="instructions" label="Instructions" value={instructions} error={error.instructions} handleChange={this.handleChange} />
           <button className="btn btn-primary btn-sm" disabled={this.validate()}>Save</button>
           <Link className="btn btn-danger btn-sm" to="/admin">Cancel</Link>

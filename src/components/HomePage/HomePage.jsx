@@ -9,34 +9,27 @@ import Recipe from '../Recipe/Recipe'
 
 export class HomePage extends Component {
 
-    _isMounted=false
-
     state = {
-        selectedIngredients: null,
+        selectedIngredients: [],
         recipes: [],
         ingredients: [],
         filteredRecipes: [],
-        minimumMatchPercentage:1
+        minimumMatchPercentage: 1
     }
 
     async componentDidMount() {
-        if(this._isMounted)
         this.setState({
             recipes: await getRecipes(),
             ingredients: ingredientsAddLabelValueProperty(await getIngredients())
         })
     }
 
-    componentWillUnmount(){
-        this._isMounted=false
-    }
-
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const {selectedIngredients, recipes, minimumMatchPercentage } = this.state
+        const { selectedIngredients, recipes, minimumMatchPercentage } = this.state
         if (selectedIngredients !== prevState.selectedIngredients) {
             const selectedIngredientsNameArray = selectedIngredients.map(ingredient => ingredient.name)
             const copyStateRecipes = cloneDeep(recipes)
-            const filteredRecipes = filterRecipes(selectedIngredientsNameArray, copyStateRecipes, minimumMatchPercentage)         
+            const filteredRecipes = filterRecipes(selectedIngredientsNameArray, copyStateRecipes, minimumMatchPercentage)
             this.setState({ filteredRecipes: filteredRecipes })
         }
     }
@@ -46,24 +39,24 @@ export class HomePage extends Component {
     }
 
     render() {
-        const { selectedIngredients, filteredRecipes } = this.state;    
-        const recipe=filteredRecipes.map(item=><Recipe key={item.id} recipe={item}/>)
+        const { selectedIngredients, filteredRecipes } = this.state;
+        const recipe = filteredRecipes.map(item => <Recipe key={item.id} recipe={item} />)
         return (
             <React.Fragment>
-            <Select
-                value={selectedIngredients}
-                onChange={this.handleChange}
-                options={this.state.ingredients}
-                isMulti
-                isClearable
-                components={makeAnimated()}
-                className="mt-5"
-            />
-            <div className="row">   
-            {recipe}
-            </div>
+                <Select
+                    value={selectedIngredients}
+                    onChange={this.handleChange}
+                    options={this.state.ingredients}
+                    isMulti
+                    isClearable
+                    components={makeAnimated()}
+                    className="mt-5"
+                />
+                <div className="row">
+                    {recipe}
+                </div>
             </React.Fragment>
-        );
+        )
     }
 }
 

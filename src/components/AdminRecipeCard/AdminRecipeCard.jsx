@@ -12,9 +12,9 @@ function AdminRecipeCard({ id, title, imageUrl, cuisine, handleDelete }) {
                         <p className="card-subtitle text-muted">{cuisine}</p>
                     </div>
                     <div className="card-footer text-muted">
-                    <Link className="btn btn-primary btn-sm mx-1" to={`/recipe/${id}`}>Edit</Link>
-                    <button className="btn btn-danger btn-sm mx-1" onClick={()=>handleDelete(id)}>Delete</button>
-                </div>
+                        <Link className="btn btn-primary btn-sm mx-1" to={`/recipe/${id}`}>Edit</Link>
+                        <button className="btn btn-danger btn-sm mx-1" onClick={() => handleDelete(id)}>Delete</button>
+                    </div>
                 </div>
             </div>
         </React.Fragment>
