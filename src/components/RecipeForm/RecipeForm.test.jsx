@@ -87,5 +87,13 @@ describe("Recipe Form", () => {
 
     })
 
+    xtest("when cancel button is clicked after making changes, route to admin page and changes did not take effect", ()=>{
+        const {getByText} = render(<Router history={history}>
+            <RecipeForm />
+        </Router>);
+
+        const cancelBtn = getByText
+    })
+
 
 })

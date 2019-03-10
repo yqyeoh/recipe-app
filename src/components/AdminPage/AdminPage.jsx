@@ -32,19 +32,25 @@ export class AdminPage extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevState.inputKeyword !== this.state.inputKeyword || prevState.recipes !== this.state.recipes) {
             const filteredRecipes = this.state.recipes.filter(recipe => recipe.title.toLowerCase().includes(this.state.inputKeyword.toLowerCase()))
-            this.setState({ filteredRecipes })
+            if(this._isMounted){
+                this.setState({ filteredRecipes })
+            }            
         }
     }
 
     handleChange = (event) => {
-        this.setState({
-            inputKeyword: event.target.value
-        })
+        if(this._isMounted){
+            this.setState({
+                inputKeyword: event.target.value
+            })
+        }        
     }
 
     handleDelete = async (id) => {
         await deleteRecipe(id)
-        this.setState({ recipes: await getRecipes() })
+        if(this._isMounted){
+            this.setState({ recipes: await getRecipes() })
+        }        
     }
 
     render() {
