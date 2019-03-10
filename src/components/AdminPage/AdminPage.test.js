@@ -42,7 +42,11 @@ beforeEach(() => {
     .mockImplementation(async () => Promise.resolve(sampleData.sort((a,b)=>a.title.localeCompare(b.title))));
   jest
     .spyOn(recipeService, "deleteRecipe")
-    .mockImplementation(async id => Promise.resolve(sampleData.filter(item => item.id !== id)))
+    .mockImplementation(async (id) => {
+        const found = sampleData.find(recipe=>recipe.id===id)
+        sampleData =  sampleData.filter(recipe=>recipe.id!==id)
+        return Promise.resolve(found)
+    })
 });
 
 const history = createMemoryHistory({ initialEntries: ["/"] });
@@ -55,7 +59,7 @@ const delay = (ms) =>
 
 describe('Admin Page', ()=>{
     test('recipes are shown upon load', async ()=>{
-        const { getAllByText, debug } = render(
+        const { getAllByText} = render(
             <Router history={history}>
               <AdminPage />
             </Router>
@@ -65,21 +69,13 @@ describe('Admin Page', ()=>{
     })    
 
     test("when delete button is clicked, recipe will be removed", async () => {
-        const { getByText, getAllByText, queryByText, debug } = render(
+        const { getByText, queryByText} = render(
           <Router history={history}>
             <AdminPage />
           </Router>
         );
         const firstDeleteBtn = await waitForElement(()=>getByText("Delete"));
-        debug()
-        // fireEvent.click(firstDeleteBtn);
-        // await delay(0)
-        // const _firstDeleteBtn = await waitForElement(()=>getByText("Delete"));
-        // await wait(()=> expect(queryByText(/chicken/i)).not.toBeInTheDocument())
-        // await wait(()=> expect(getAllByText("Delete").length).toEqual(1))
-        
-        // expect(
-        //   queryByText(/ramen/i)
-        // ).not.toBeInTheDocument();
+        fireEvent.click(firstDeleteBtn);        
+        await wait(()=> expect(queryByText(/chicken pie/i)).not.toBeInTheDocument())
       })
 })
