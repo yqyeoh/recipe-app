@@ -5,7 +5,7 @@ let recipes = [
         cuisine: "Western",
         imageUrl: "https://foolproofliving.com/wp-content/uploads/2013/09/Lighter-Chicken-Parmesan-9688-FL.jpg",
         timeRequired: "90",
-        servings: 5,
+        servings: "5",
         ingredients: [
             { ingredientName: "chicken breast halves", extraDescription: "skinless, boneless", qty: "4", unit: "", isOptional: false},
             { ingredientName: "parmesan cheese", extraDescription: "grated", qty: "1/2", unit: "cup", isOptional: false },
@@ -34,7 +34,7 @@ let recipes = [
         cuisine: "Chinese",
         imageUrl: "https://static01.nyt.com/images/2016/11/15/dining/15COOKING-OLD-BEEF-STEW2/15COOKING-OLD-BEEF-STEW2-articleLarge.jpg",
         timeRequired: "120",
-        servings: 4,
+        servings: "4",
         ingredients: [
             { ingredientName: "beef stew meat", extraDescription: "cubed", qty: "2", unit: "lb", isOptional: false },
             { ingredientName: "beef bouillon", extraDescription: "crumbled", qty: "4", unit: "cubes", isOptional: false },
@@ -57,7 +57,7 @@ let recipes = [
         title: "Mojito Shrimp",
         cuisine: "Western",
         imageUrl: "https://cook.fnr.sndimg.com/content/dam/images/cook/fullset/2018/6/28/0/RogerMooking_Mojito-Lime-Shrimp_H_s4x3.jpg.rend.hgtvcom.826.620.suffix/1530200127431.jpeg",
-        servings: 4,
+        servings: "4",
         ingredients: [
             { ingredientName: "shrimp", extraDescription: "peeled, deveined shrimp, tails on", qty: "1.5", unit: "lb", isOptional: false },
             { ingredientName: "lime juice", extraDescription: "", qty: "2", unit: "tbsp", isOptional: false },
@@ -74,7 +74,7 @@ let recipes = [
         title: "Yang Zhou Fried Rice",
         cuisine: "Chinese",
         imageUrl: "https://www.fifteenspatulas.com/wp-content/uploads/2012/03/Fried-Rice-Fifteen-Spatulas-8-640x427.jpg",
-        servings: 4-6,
+        servings: "4-6",
         ingredients: [
             { ingredientName: "rice", extraDescription: "a day old", qty: "3", unit: "bowl", isOptional: false },
             { ingredientName: "dried shrimp", extraDescription: "", qty: "1", unit: "small handful", isOptional:true },
@@ -104,7 +104,7 @@ let recipes = [
         title: "Black Pepper Crab",
         cuisine: "Chinese",
         imageUrl: "https://i1.wp.com/media.hungryforever.com/wp-content/uploads/2015/12/01120718/BlackPepperCrabs891-e1448951861785.png?resize=600%2C399&ssl=1",
-        servings: 4,
+        servings: "4",
         ingredients: [
             { ingredientName: "kecap manis", extraDescription: "", qty: "3", unit: "tbsp", isOptional: false },
             { ingredientName: "oyster sauce", extraDescription: "", qty: "3", unit: "tbsp", isOptional: false },
@@ -136,7 +136,7 @@ let recipes = [
         title: "Ginger and Lime Salmon",
         cuisine: "Western",
         imageUrl: "http://media.mongoliankitchen.com/wp-content/uploads/2012/06/ginger-lime-salmon-7.jpg",
-        servings: 4,
+        servings: "4",
         ingredients: [
             { ingredientName: "salmon fillet", extraDescription: "", qty: "1 1/2", unit: "lb", isOptional: false },
             { ingredientName: "olive oil", extraDescription: "", qty: "1", unit: "tbsp", isOptional: false },
@@ -156,7 +156,7 @@ let recipes = [
         title: "Red Curry Chicken",
         cuisine: "Thai",
         imageUrl: "https://www.goodfood.com.au/content/dam/images/g/x/8/5/u/y/image.related.wideLandscape.940x529.gx8t1v.png/1516149893419.jpg",
-        servings: 4,
+        servings: "4",
         ingredients: [
             { ingredientName: "coconut oil", extraDescription: "", qty: "2", unit: "tbsp", isOptional: false },
             { ingredientName: "chicken breast halves", extraDescription: "skinless, boneless, cut into small", qty: "16", unit: "oz", isOptional: false },
@@ -174,7 +174,7 @@ let recipes = [
         title: "Thai-Style Rice Noodles",
         cuisine: "Thai",
         imageUrl: "https://rasamalaysia.com/wp-content/uploads/2009/11/pad-see-ew-thumb-500x375.jpg",
-        servings: 4,
+        servings: "4",
         ingredients: [
             { ingredientName: "corn starch", extraDescription: "", qty: "2", unit: "tbsp", isOptional: false },
             { ingredientName: "water", extraDescription: "", qty: "1 1/2", unit: "tbsp", isOptional: false },
@@ -204,7 +204,7 @@ let recipes = [
         title: "Broiled Arctic Char With Sesame-Ginger Mustard",
         cuisine: "Western",
         imageUrl: "https://kingsfoodmarkets.com/uploads/recipes-multi-size/KF_138_March2017_Site_Updates_Recipe_Image_Resize.jpg",
-        servings: 4,
+        servings: "4",
         ingredients: [
             { ingredientName: "scallion", extraDescription: "trimmed", qty: "2", unit: "bunch", isOptional: false },
             { ingredientName: "olive oil", extraDescription: "", qty: "1", unit: "tbsp", isOptional: false },
@@ -225,7 +225,7 @@ let recipes = [
         title: "Fettuccine with Sweet Pepper-Cayenne Sauce",
         cuisine: "Western",
         imageUrl: "https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/image/recipes/ck/11/04/fettuccine-olive-oil-ck-x.jpg?itok=bt5Cny7R",
-        servings: 4,
+        servings: "4",
         ingredients: [
             { ingredientName: "fettuccinne pasta", extraDescription: "dry", qty: "12", unit: "oz", isOptional: false },
             { ingredientName: "red bell pepper", extraDescription: "julienned", qty: "2", unit: "", isOptional: false },
