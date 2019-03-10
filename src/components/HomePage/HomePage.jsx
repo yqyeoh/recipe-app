@@ -43,6 +43,9 @@ export class HomePage extends Component {
         const recipe = filteredRecipes.map(item => <Recipe key={item.id} recipe={item} />)
         return (
             <React.Fragment>
+                <div>
+                <h1 className="landing-title">What Can I Cook?</h1>
+                </div>
                 <Select
                     value={selectedIngredients}
                     onChange={this.handleChange}

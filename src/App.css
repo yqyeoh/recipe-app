@@ -10,3 +10,10 @@ body {
     height: 200px;
     object-fit:cover
 }
+
+.landing-title{
+  font-family: 'Lobster';
+  color: red;
+  font-size: 3em;
+  text-align: center
+}
