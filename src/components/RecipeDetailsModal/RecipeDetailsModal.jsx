@@ -18,10 +18,10 @@ function RecipeDetailsModal({ showModal, toggle, recipe }) {
         <div className='modal-flex-container'>
           <img src={imageUrl} alt="food" />
           <div>
-          <h6 className='inline-block'>Servings:</h6><span> </span><p className='inline-block'>{servings}</p>
+          <h6 className='inline-block'>Servings:&nbsp;</h6><p className='inline-block'>{servings}</p>
           </div>
           <div>
-          <h6 className='inline-block'>Time Required:</h6><span> </span><p className='inline-block'>{timeRequired} mins</p>
+          <h6 className='inline-block'>Time Required:&nbsp;</h6><p className='inline-block'>{timeRequired} mins</p>
           </div>
           
           <div>

@@ -1,6 +1,6 @@
 # What Can I Cook?
 
-A smart robot that suggests recipes based on the ingredient you have. Never mull over what to cook again! 
+A smart robot that suggests recipes based on the ingredients you have. Never mull over what to cook again! 
 
 Admin users also have the access to create & edit recipes. Save your favorite recipes now!
 
