@@ -1,5 +1,6 @@
 const axios = require('axios');
-const serverUrl = 'localhost:5555'
+
+const serverUrl = 'http://localhost:5555';
 
 // const cuisines = [
 //   {
@@ -27,8 +28,10 @@ const defaultCuisine = {
 
 export async function getCuisines() {
   try {
+    console.log('get cuisines hit');
     const cuisines = await axios.get(`${serverUrl}/cuisines`);
-    return cuisines.sort((a, b) => {
+    console.log('cuisines', cuisines);
+    return cuisines.data.sort((a, b) => {
       return a.name.localeCompare(b.name);
     });
   } catch (error) {

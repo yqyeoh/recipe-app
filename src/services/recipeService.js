@@ -248,14 +248,17 @@
 
 const axios = require('axios');
 
-const serverUrl = 'localhost:5555';
+const serverUrl = 'http://localhost:5555';
 
 export async function getRecipes() {
   try {
+    console.log('get recipes hit');
     const recipes = await axios.get(`${serverUrl}/recipes`);
-    const mappedRecipes = recipes.map(recipe => {
+    console.log('recipes', recipes);
+    const mappedRecipes = recipes.data.map(recipe => {
       recipe.cuisine = recipe.cuisine.name;
       recipe.ingredients.map(item => {
+        delete item._id
         item.ingredientName = item.ingredient.name;
         return item;
       });
@@ -291,13 +294,14 @@ export async function deleteRecipe(id) {
 
 export async function saveRecipe(recipe) {
   let savedRecipe;
+  console.log('saved recipe hit');
   try {
     if (!recipe._id) {
-      savedRecipe = await axios.post(`${serverUrl}/recipes`);
+      savedRecipe = await axios.post(`${serverUrl}/recipes`, recipe);
     } else {
-      savedRecipe = await axios.put(`${serverUrl}/recipes/${recipe._id}`);
+      savedRecipe = await axios.put(`${serverUrl}/recipes/${recipe._id}`, recipe);
     }
-    return savedRecipe;
+    return savedRecipe.data;
   } catch (error) {
     console.error(error);
   }

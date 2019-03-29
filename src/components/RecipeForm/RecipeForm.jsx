@@ -90,12 +90,13 @@ export class RecipeForm extends Component {
   handleCreateIngredientOption = idx => value => {
     value = value.toLowerCase()
     const newOption = { name: value, label: value, value: value }
-    const { newIngredientOptions, ingredientOptions } = this.state
+    // const { newIngredientOptions, ingredientOptions } = this.state
+    const { ingredientOptions } = this.state
     const copyRecipe = cloneDeep(this.state.recipe)
     copyRecipe.ingredients[idx].ingredientName = value
 
     this.setState({
-      newIngredientOptions: [...newIngredientOptions, newOption],
+      // newIngredientOptions: [...newIngredientOptions, newOption],
       ingredientOptions: [...ingredientOptions, newOption]
     }, () => {
       this.setState({ recipe: copyRecipe })
@@ -107,7 +108,8 @@ export class RecipeForm extends Component {
     const id = this.props.match ? this.props.match.params.id : null;
     const cuisines = await getCuisines()
     const recipes = await getRecipes()
-    const recipeFound = recipes.find(recipe => recipe.id === id)
+    const recipeFound = recipes.find(recipe => recipe._id === id)
+    console.log('recipe found on component did mount', recipeFound)
     const ingredients = cloneDeep(await getIngredients())
     const ingredientOptions = ingredientsAddLabelValueProperty(ingredients)
     if (this._isMounted) {
@@ -140,11 +142,17 @@ export class RecipeForm extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault()
-    const { recipe, newIngredientOptions } = this.state
-    const recipeIngredientNames = recipe.ingredients.map(ingredient => ingredient.ingredientName)
-    const cleansedNewIngredients = newIngredientOptions.filter(newIngredient => recipeIngredientNames.includes(newIngredient.name)).map(newIngredient => ({ name: newIngredient.name, isExcludedFromMatch: false }))
-    await saveRecipe(recipe)
-    await saveIngredients(cleansedNewIngredients)
+    const { recipe } = this.state
+    const copyRecipe = cloneDeep(recipe)
+    copyRecipe.ingredients = copyRecipe.ingredients.map(item=>{
+      item.ingredient = item.ingredientName
+      delete item.ingredientName
+      return item
+    })
+    console.log('recipe before submit', recipe)
+    const savedRecipe = await saveRecipe(copyRecipe)
+    
+    // await saveIngredients(cleansedNewIngredients)
     this.props.history.replace(this.props.returnPath);
 
   }
@@ -158,6 +166,7 @@ export class RecipeForm extends Component {
   render() {
     const { title, cuisine, servings, timeRequired, imageUrl, ingredients, instructions } = this.state.recipe
     const { error, ingredientOptions, cuisines } = this.state
+
     return (
       <div className="container">
         <h3>{title ? "Edit Recipe" : "New Recipe"}</h3>
