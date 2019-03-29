@@ -144,7 +144,7 @@ export class RecipeForm extends Component {
     const recipeIngredientNames = recipe.ingredients.map(ingredient => ingredient.ingredientName)
     const cleansedNewIngredients = newIngredientOptions.filter(newIngredient => recipeIngredientNames.includes(newIngredient.name)).map(newIngredient => ({ name: newIngredient.name, isExcludedFromMatch: false }))
     await saveRecipe(recipe)
-    saveIngredients(cleansedNewIngredients)
+    await saveIngredients(cleansedNewIngredients)
     this.props.history.replace(this.props.returnPath);
 
   }

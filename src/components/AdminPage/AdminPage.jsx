@@ -68,7 +68,7 @@ export class AdminPage extends Component {
                 </div>
                 </div>
                 <div className="row">
-                    {filteredRecipes.map(recipe => <AdminRecipeCard key={recipe.id} id={recipe.id} title={recipe.title} imageUrl={recipe.imageUrl} cuisine={recipe.cuisine} handleDelete={this.handleDelete} />)}
+                    {filteredRecipes.map(recipe => <AdminRecipeCard key={recipe._id} id={recipe._id} title={recipe.title} imageUrl={recipe.imageUrl} cuisine={recipe.cuisine} handleDelete={this.handleDelete} />)}
                 </div>
             </div>
         )
