@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const serverUrl = 'http://localhost:5555';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 // const ingredients = [
 //   { id: 1, name: 'chicken', isExcludedFromMatch: false },
@@ -93,7 +93,7 @@ const serverUrl = 'http://localhost:5555';
 export async function getIngredients() {
   try {
     console.log('get ingredients hit');
-    const ingredients = await axios.get(`${serverUrl}/ingredients`);
+    const ingredients = await axios.get(`${apiUrl}/ingredients`);
     console.log('ingredients', ingredients);
     return ingredients.data.sort((a, b) => {
       return a.name.localeCompare(b.name);
@@ -112,7 +112,7 @@ export async function saveIngredients(newIngredients) {
   try {
     if (newIngredients.length === 0) return;
     newIngredients.forEach(async ingredient => {
-      await axios.post(`${serverUrl}/ingredients`, ingredient);
+      await axios.post(`${apiUrl}/ingredients`, ingredient);
     });
   } catch (error) {
     console.error(error);
