@@ -6,9 +6,11 @@ import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import App from './App';
 import * as recipeService from './services/recipeService';
+import * as ingredientService from './services/ingredientService';
+import * as cuisineService from './services/cuisineService';
 
 beforeEach(() => {
-  let sampleData = [
+  let sampleRecipeData = [
     {
       _id: '1',
       title: 'Chicken Pie',
@@ -39,23 +41,40 @@ beforeEach(() => {
     },
   ];
 
+  const sampleIngredientData = [
+    { _id: 1, name: 'chicken breast', isExcludedFromMatch: false },
+    { _id: 2, name: 'olive oil', isExcludedFromMatch: false },
+    { _id: 3, name: 'Ramen noodle', isExcludedFromMatch: false },
+    { _id: 4, name: 'red bell pepper', isExcludedFromMatch: false },
+    { _id: 5, name: 'rice', isExcludedFromMatch: false },
+    { _id: 5, name: 'beef', isExcludedFromMatch: false },
+  ];
+
+  const sampleCuisineData = [{ _id: 1, name: 'Western' }, { _id: 2, name: 'Chinese' }, { _id: 3, name: 'Japanese' }];
+
   jest
     .spyOn(recipeService, 'getRecipes')
-    .mockImplementation(async () => Promise.resolve(sampleData.sort((a, b) => a.title.localeCompare(b.title))));
+    .mockImplementation(async () => Promise.resolve(sampleRecipeData.sort((a, b) => a.title.localeCompare(b.title))));
+  jest
+    .spyOn(ingredientService, 'getIngredients')
+    .mockImplementation(async () => Promise.resolve(sampleIngredientData.sort((a, b) => a.name.localeCompare(b.name))));
+  jest
+    .spyOn(cuisineService, 'getCuisines')
+    .mockImplementation(async () => Promise.resolve(sampleCuisineData.sort((a, b) => a.name.localeCompare(b.name))));
   jest.spyOn(recipeService, 'saveRecipe').mockImplementation(async recipe => {
-    const existingRecipe = sampleData.find(item => item._id === recipe._id);
+    const existingRecipe = sampleRecipeData.find(item => item._id === recipe._id);
     let savedRecipe;
     if (existingRecipe) {
       const merged = { ...existingRecipe, ...recipe };
-      sampleData = sampleData.filter(item => item._id !== recipe._id);
-      sampleData.push(merged);
+      sampleRecipeData = sampleRecipeData.filter(item => item._id !== recipe._id);
+      sampleRecipeData.push(merged);
       savedRecipe = merged;
     } else {
       const newRecipe = {
         _id: Date.now().toString(),
         ...recipe,
       };
-      sampleData.push(newRecipe);
+      sampleRecipeData.push(newRecipe);
       savedRecipe = newRecipe;
     }
     return Promise.resolve(savedRecipe);
