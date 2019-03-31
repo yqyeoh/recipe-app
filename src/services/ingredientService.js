@@ -111,9 +111,12 @@ export async function getIngredients() {
 export async function saveIngredients(newIngredients) {
   try {
     if (newIngredients.length === 0) return;
-    newIngredients.forEach(async ingredient => {
-      await axios.post(`${apiUrl}/ingredients`, ingredient);
-    });
+    for (const newIngredient of newIngredients) {
+      await axios.post(`${apiUrl}/ingredients`, newIngredient);
+    }
+    // newIngredients.forEach(async ingredient => {
+    //   await axios.post(`${apiUrl}/ingredients`, ingredient);
+    // });
   } catch (error) {
     console.error(error);
   }
