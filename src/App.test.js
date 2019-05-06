@@ -8,50 +8,14 @@ import App from './App';
 import * as recipeService from './services/recipeService';
 import * as ingredientService from './services/ingredientService';
 import * as cuisineService from './services/cuisineService';
+import * as userService from './services/userService';
+import { recipesTestData, ingredientsTestData, cuisinesTestData } from './tests/testdata';
 
 beforeEach(() => {
-  let sampleRecipeData = [
-    {
-      _id: '1',
-      title: 'Chicken Pie',
-      cuisine: 'Western',
-      imageUrl:
-        'https://kingsfoodmarkets.com/uploads/recipes-multi-size/KF_138_March2017_Site_Updates_Recipe_Image_Resize.jpg',
-      servings: 4,
-      ingredients: [
-        { ingredientName: 'chicken breast', extraDescription: 'trimmed', qty: '2', unit: 'bunch', isOptional: false },
-        { ingredientName: 'olive oil', extraDescription: '', qty: '1', unit: 'tbsp', isOptional: false },
-      ],
-      timeRequired: '45',
-      instructions: ' test instruction 1',
-    },
-    {
-      _id: '2',
-      title: 'Ramen',
-      cuisine: 'Western',
-      imageUrl:
-        'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/image/recipes/ck/11/04/fettuccine-olive-oil-ck-x.jpg?itok=bt5Cny7R',
-      servings: 4,
-      ingredients: [
-        { ingredientName: 'Ramen noodle', extraDescription: 'dry', qty: '12', unit: 'oz', isOptional: true },
-        { ingredientName: 'red bell pepper', extraDescription: 'julienned', qty: '2', unit: '', isOptional: false },
-      ],
-      timeRequired: '15',
-      instructions: 'test instruction 2',
-    },
-  ];
-
-  const sampleIngredientData = [
-    { _id: 1, name: 'chicken breast', isExcludedFromMatch: false },
-    { _id: 2, name: 'olive oil', isExcludedFromMatch: false },
-    { _id: 3, name: 'Ramen noodle', isExcludedFromMatch: false },
-    { _id: 4, name: 'red bell pepper', isExcludedFromMatch: false },
-    { _id: 5, name: 'rice', isExcludedFromMatch: false },
-    { _id: 5, name: 'beef', isExcludedFromMatch: false },
-  ];
-
-  const sampleCuisineData = [{ _id: 1, name: 'Western' }, { _id: 2, name: 'Chinese' }, { _id: 3, name: 'Japanese' }];
-
+  let sampleRecipeData = JSON.parse(JSON.stringify(recipesTestData));
+  const sampleCuisineData = JSON.parse(JSON.stringify(cuisinesTestData));
+  const sampleIngredientData = JSON.parse(JSON.stringify(ingredientsTestData));
+  jest.spyOn(userService, 'getUser').mockImplementation(async () => Promise.resolve('admin@recipe.com'));
   jest
     .spyOn(recipeService, 'getRecipes')
     .mockImplementation(async () => Promise.resolve(sampleRecipeData.sort((a, b) => a.title.localeCompare(b.title))));
@@ -79,10 +43,6 @@ beforeEach(() => {
     }
     return Promise.resolve(savedRecipe);
   });
-});
-
-afterEach(() => {
-  recipeService.getRecipes.mockRestore();
 });
 
 const history = createMemoryHistory({ initialEntries: ['/'] });

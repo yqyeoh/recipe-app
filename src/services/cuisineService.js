@@ -1,27 +1,6 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
-
-// const serverUrl = 'http://localhost:5555';
-
-// const cuisines = [
-//   {
-//     _id: '5c3430ecfc13ae122d000000',
-//     name: 'Western',
-//   },
-//   {
-//     _id: '5c3430ecfc13ae122d000001',
-//     name: 'Japanese',
-//   },
-//   {
-//     _id: '5c3430ecfc13ae122d000002',
-//     name: 'Thai',
-//   },
-//   {
-//     _id: '5c3430ecfc13ae122d000003',
-//     name: 'Chinese',
-//   },
-// ];
 
 const defaultCuisine = {
   _id: '5c3430ecfc13ae122d000005',
@@ -31,7 +10,7 @@ const defaultCuisine = {
 export async function getCuisines() {
   try {
     console.log('get cuisines hit');
-    const cuisines = await axios.get(`${apiUrl}/cuisines`);
+    const cuisines = await axios.get(`${apiUrl}/cuisines`, { withCredentials: true });
     console.log('cuisines', cuisines);
     return cuisines.data.sort((a, b) => {
       return a.name.localeCompare(b.name);
@@ -39,16 +18,6 @@ export async function getCuisines() {
   } catch (error) {
     console.error(error);
   }
-
-  // try {
-  //   return Promise.resolve(
-  //     cuisines.sort((a, b) => {
-  //       return a.name.localeCompare(b.name);
-  //     })
-  //   );
-  // } catch (error) {
-  //   console.error(error);
-  // }
 }
 
 export function getDefaultCuisine() {

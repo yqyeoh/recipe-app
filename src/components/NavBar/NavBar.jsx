@@ -1,11 +1,11 @@
-import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-danger mb-5">
       <Link className="navbar-brand" to="/">
-        <i className="fas fa-bread-slice"></i>
+        <i className="fas fa-bread-slice" />
       </Link>
       <button
         className="navbar-toggler"
@@ -20,7 +20,7 @@ function NavBar() {
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <NavLink className="nav-item nav-link" to="/home">
+          <NavLink className="nav-item nav-link" to="/">
             Home
           </NavLink>
           <NavLink className="nav-item nav-link" to="/admin">
@@ -29,7 +29,7 @@ function NavBar() {
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
-export default NavBar
+export default NavBar;

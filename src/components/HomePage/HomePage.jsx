@@ -7,6 +7,8 @@ import { getIngredients, ingredientsAddLabelValueProperty } from '../../services
 import Recipe from '../Recipe/Recipe';
 
 export class HomePage extends Component {
+  _isMounted = false;
+
   state = {
     selectedIngredients: [],
     recipes: [],
@@ -16,10 +18,19 @@ export class HomePage extends Component {
   };
 
   async componentDidMount() {
-    this.setState({
-      recipes: await getRecipes(),
-      ingredients: ingredientsAddLabelValueProperty(await getIngredients()),
-    });
+    this._isMounted = true;
+    const recipes = await getRecipes();
+    const ingredients = ingredientsAddLabelValueProperty(await getIngredients());
+    if (this._isMounted) {
+      this.setState({
+        recipes,
+        ingredients,
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -28,12 +39,16 @@ export class HomePage extends Component {
       const selectedIngredientsNameArray = selectedIngredients.map(ingredient => ingredient.name);
       const copyStateRecipes = cloneDeep(recipes);
       const filteredRecipes = filterRecipes(selectedIngredientsNameArray, copyStateRecipes, minimumMatchPercentage);
-      this.setState({ filteredRecipes });
+      if (this._isMounted) {
+        this.setState({ filteredRecipes });
+      }
     }
   }
 
   handleChange = selectedIngredients => {
-    this.setState({ selectedIngredients });
+    if (this._isMounted) {
+      this.setState({ selectedIngredients });
+    }
   };
 
   render() {

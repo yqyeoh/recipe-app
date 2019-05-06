@@ -6,39 +6,11 @@ import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import AdminPage from './AdminPage';
 import * as recipeService from '../../services/recipeService';
+import * as userService from '../../services/userService';
+import { recipesTestData } from '../../tests/testdata';
 
 beforeEach(() => {
-  let sampleData = [
-    {
-      _id: '1',
-      title: 'Ramen',
-      cuisine: 'Western',
-      imageUrl:
-        'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/image/recipes/ck/11/04/fettuccine-olive-oil-ck-x.jpg?itok=bt5Cny7R',
-      servings: 4,
-      ingredients: [
-        { ingredientName: 'Ramen noodle', extraDescription: 'dry', qty: '12', unit: 'oz', isOptional: true },
-        { ingredientName: 'red bell pepper', extraDescription: 'julienned', qty: '2', unit: '', isOptional: false },
-      ],
-      timeRequired: '15',
-      instructions: 'test instruction 2',
-    },
-    {
-      _id: '2',
-      title: 'Chicken Pie',
-      cuisine: 'Western',
-      imageUrl:
-        'https://kingsfoodmarkets.com/uploads/recipes-multi-size/KF_138_March2017_Site_Updates_Recipe_Image_Resize.jpg',
-      servings: 4,
-      ingredients: [
-        { ingredientName: 'chicken breast', extraDescription: 'trimmed', qty: '2', unit: 'bunch', isOptional: false },
-        { ingredientName: 'olive oil', extraDescription: '', qty: '1', unit: 'tbsp', isOptional: false },
-      ],
-      timeRequired: '45',
-      instructions: ' test instruction 1',
-    },
-  ];
-
+  let sampleData = JSON.parse(JSON.stringify(recipesTestData));
   jest
     .spyOn(recipeService, 'getRecipes')
     .mockImplementation(async () => Promise.resolve(sampleData.sort((a, b) => a.title.localeCompare(b.title))));
@@ -47,19 +19,20 @@ beforeEach(() => {
     sampleData = sampleData.filter(recipe => recipe._id !== id);
     return Promise.resolve(found);
   });
+  jest.spyOn(userService, 'getUser').mockImplementation(async () => Promise.resolve('admin@recipe.com'));
 });
 
 const history = createMemoryHistory({ initialEntries: ['/'] });
 
-describe('Admin Page', () => {
+describe('Admin Page with valid token', () => {
   test('recipes are shown upon load', async () => {
     const { getAllByText } = render(
       <Router history={history}>
         <AdminPage />
       </Router>
     );
-    expect(recipeService.getRecipes).toHaveBeenCalledTimes(1);
     await wait(() => expect(getAllByText('Delete').length).toEqual(2));
+    expect(recipeService.getRecipes).toHaveBeenCalledTimes(1);
   });
 
   test('when delete button is clicked, recipe will be removed', async () => {
