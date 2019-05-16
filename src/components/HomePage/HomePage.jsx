@@ -19,8 +19,8 @@ export class HomePage extends Component {
 
   async componentDidMount() {
     this._isMounted = true;
-    const recipes = await getRecipes();
-    const ingredients = ingredientsAddLabelValueProperty(await getIngredients());
+    const [recipes, originalIngredients] = await Promise.all([getRecipes(), getIngredients()]);
+    const ingredients = ingredientsAddLabelValueProperty(originalIngredients);
     if (this._isMounted) {
       this.setState({
         recipes,

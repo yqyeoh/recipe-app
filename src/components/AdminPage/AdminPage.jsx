@@ -20,8 +20,7 @@ export class AdminPage extends Component {
 
   async componentDidMount() {
     this._isMounted = true;
-    const user = await getUser();
-    const recipes = await getRecipes();
+    const [user, recipes] = await Promise.all([getUser(), getRecipes()]);
     if (this._isMounted) {
       this.setState({
         recipes,

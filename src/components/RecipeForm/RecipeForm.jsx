@@ -112,13 +112,15 @@ export class RecipeForm extends Component {
 
   async componentDidMount() {
     this._isMounted = true;
-    const user = await getUser();
+    const [user, cuisines, recipes, ingredients] = await Promise.all([
+      getUser(),
+      getCuisines(),
+      getRecipes(),
+      getIngredients(),
+    ]);
     const { match } = this.props;
     const id = match ? match.params.id : null;
-    const cuisines = await getCuisines();
-    const recipes = await getRecipes();
     const recipeFound = recipes.find(recipe => recipe._id === id);
-    const ingredients = cloneDeep(await getIngredients());
     const ingredientOptions = ingredientsAddLabelValueProperty(ingredients);
     if (this._isMounted) {
       if (recipeFound) {
